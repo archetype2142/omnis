@@ -1,0 +1,14 @@
+.container.is-fluid.has-mb-60
+  h1.title.is-1.has-text-centered.has-mt-24 New product
+  .columns
+    .column.is-2
+      = sidebar({'type': "All Products"})
+    .column.is-8.content.is-mb-60
+      = render 'admin/products/new_product_form'
+    .column
+      .sticky
+        .box.has-mt-24.hide-mob
+          p Search/Scan/Filter/Notes
+          br
+          = render 'admin/customers/clients/new_user_modal' 
+          button.button.is-primary New Client

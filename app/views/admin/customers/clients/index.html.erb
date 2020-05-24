@@ -1,0 +1,21 @@
+<div class="container is-fluid has-mb-60">
+  <h1 class="title is-1 has-text-centered has-mt-24"> Customer Section </h1>
+  <div class="columns">
+    <div class="column is-2">
+      <%= sidebar({'type': "Customer Settings"}) %>
+    </div>
+    <div class="column is-8 content is-mb-60">
+      <%= users_table(all_users) %>
+    </div>
+    <div class="column">
+      <div class="box has-mt-24 sticky hide-mob">
+        <p>Search/Scan/Filter/Notes</p>
+        <br/>
+        <%= render 'admin/customers/clients/new_user_modal' %>
+        <button id="open-modal" class="button is-primary"> New Client </button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<%= javascript_pack_tag "interactions", 'data-turbolinks-track': 'reload' %>  

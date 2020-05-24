@@ -1,0 +1,27 @@
+.container.is-fluid
+  h1.title.is-1.has-text-centered.has-mt-24 New Order
+  .columns
+    .column.is-2
+      = sidebar({'type': 'Orders', \
+        items: { \
+          'New Order': "#{new_admin_order_path}", \
+          'All Orders': "#{admin_orders_path}" \
+        } } )
+    .column.is-8.content style="height: 150vh;"
+      = render 'admin/orders/new_order_form'
+    .column
+      .sticky
+        .box.hide-mob
+          p Search/Scan/Filter/Notes
+          br
+          button.button.is-primary id="open-modal" New Client 
+
+        .box.has-mt-24.hide-mob
+          p Search/Scan/Filter/Notes
+          br
+          button.button.is-primary id="open-modal" New Order
+
+        .box.has-mt-24.hide-mob
+          p Search/Scan/Filter/Notes
+          br
+          = link_to "New Order", new_admin_order_path, class: "button is-info", id: "open-modal"

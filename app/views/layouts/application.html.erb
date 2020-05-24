@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Omnis</title>
+    <meta name="theme-color" content="#000000" />
+    <meta name="viewport" content="width=device-width">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <%= render 'layouts/navbar' %>
+
+    <%= flash_messages %>
+
+    <%= yield %>
+  </body>
+</html>

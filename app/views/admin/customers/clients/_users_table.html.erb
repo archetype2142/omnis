@@ -1,0 +1,24 @@
+<div class="table__wrapper">
+  <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth has-mt-24">
+    <thead class="has-bg-peach-pop-40">
+      <tr>
+        <th><abbr title="Name">Name</abbr></th>
+        <th>Type</th>
+        <th class="hide-mob"><abbr title="Total">Email</abbr></th>
+        <th><abbr title="Last Order">Last Order</abbr></th>
+        <th><abbr title="Total">Total Purchases</abbr></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% all_users.each do |user| %>
+        <tr onclick="window.location='<%= admin_customers_client_path(user) %>'">
+          <th><%= fullname(user) %></th>
+          <th><%= user&.spree_roles&.first&.name %> </th>
+          <th class="hide-mob"><%= user.email %></th>
+          <th>abc</th>
+          <th>abc</th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

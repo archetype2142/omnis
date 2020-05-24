@@ -1,0 +1,61 @@
+= form_with model: @product, url: admin_product_path do |f| 
+  .columns
+    .column
+      .field 
+        .label Name
+        .control
+          = f.text_field :name, class: 'input'
+    .column
+      .field 
+        .label SKU
+        .control
+          = f.text_field :sku, class: 'input'
+  .columns
+
+    .column
+      .label Master Price
+      .field.has-addons
+        .control
+          = f.text_field :price, class: 'input'
+        .control
+          a.button.is-static
+            = @product.currency
+    .column
+      .label Cost Price
+      .field.has-addons
+        .control
+          = f.text_field :cost_price, class: 'input'
+        .control
+          a.button.is-static
+            = @product.currency
+  .field
+    .label Currency
+    .control
+      .select
+        = f.select(:currency, currency_codes(which: ['PLN', 'USD']))
+  .columns
+    .column.is-centered
+      .field
+        label.label Tax Category
+        .control
+        .select
+          = f.select(:tax_category_id, Spree::TaxCategory.all.map{ |t| [t.name, t.id]})             
+    .column.is-centered
+      .field
+        label.label Shipping Category
+        .control
+          .select
+            = f.select(:shipping_category_id, Spree::ShippingCategory.all.map{ |t| [t.name, t.id]})
+  .field
+    .label Slug
+    .control
+      = f.text_field :slug, class: 'input'
+  .field
+    .label Description
+    .control
+      = f.text_area :description, class: 'textarea'
+  
+  .field
+    .control
+      = f.submit "Update!", class: 'button is-primary'
+      

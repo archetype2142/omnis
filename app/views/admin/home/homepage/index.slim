@@ -1,0 +1,10 @@
+.container style="overflow: hidden;"
+  h1.title.has-text-centered.has-mt-24 Dashboard
+  .columns 
+    .column
+      canvas id="myChart"
+    .column
+      canvas id="myChart2"
+
+= javascript_pack_tag 'charts', 'data-turbolinks-track': 'reload' 
+

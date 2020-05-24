@@ -1,0 +1,20 @@
+<table class="table is-striped is-hoverable is-fullwidth has-mt-24">
+  <thead class="has-bg-peach-pop-40">
+    <tr>
+      <th><abbr title="Id">ID</abbr></th>
+      <th><abbr title="Name">Name</abbr></th>
+      <th><abbr title="Photo">Photo</abbr></th>
+      <th><abbr title="Modify">Modify</abbr></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% scope.images.each do |image| %>
+      <tr>
+        <th><%= image.id %></th>
+        <th><%= image.attachment_file_name %> </th>
+        <th><%= image_tag image.url(:small) %></th>
+        <th><%= link_to "Delete", admin_product_image_path(scope, image), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' %>
+      </tr> 
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,137 @@
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Create New User</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <%= form_with url: admin_customers_clients_path, method: :post do %>
+        <h3 class="title is-4 has-text-centered"> Personal Information </h3>
+        <div class="field">
+          <label class="label">First Name</label>
+          <div class="control">
+            <%= text_field :client, :firstname, placeholder: "First Name", class: "input", required: true%>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Last Name</label>
+          <div class="control">
+            <%= text_field :client, :lastname, placeholder: "Last Name", class: "input", required: true%>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control has-icons-left has-icons-right">
+            <%= email_field(:user, :address, placeholder: "Email address", class: "input", required: true)%>
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Client type</label>
+          <div class="control">
+            <div class="select">
+              <%= select(:client_type, :type_id, [['individual', 1], ['company', 2]]) %>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="title is-4 has-text-centered"> Address </h3>
+        <div class="field">
+          <label class="label">Address Line 1</label>
+          <div class="control">
+            <%= text_field :client, :address1, placeholder: "Address 1", class: "input", required: true %>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Address Line 2</label>
+          <div className="control">
+            <%= text_field :client, :address2, placeholder: "Address 2", class: "input"  %>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">City</label>
+          <div class="control">
+            <%= text_field :client, :city, placeholder: "City", class: "input", required: true %>
+          </div>
+        </div>
+
+        <div id="address_generator"></div>
+
+        <div class="field">
+          <label class="label"> Country </label>
+          <div class="control">
+            <div class="select">
+              <%= select(:client, :country_id, available_countries, required: true)%>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          fetch('/api/v1/states/Poland')
+          .then(response => response.json())
+          .then(function(data) {
+            var result = Object.keys(data).map(function (key) { 
+              return data[key]; 
+            }); 
+
+            for(var i = 0, l = result.length; i < l; i++){
+              var option = result[i];
+
+              document.querySelector('#client_state_id').options.add(new Option(option) );
+            }
+          });
+
+          document.querySelector('#client_country_id').addEventListener('change', function(event) {
+            event.preventDefault();
+            console.log(this.value);
+            let self = this;
+            let states = document.querySelector('#client_state_id')
+
+            fetch('/api/v1/states/' + this.value)
+            .then(response => response.json())
+            .then(function(data) {
+              var length = states.options.length;              
+              for (i = length-1; i >= 0; i--) {
+                states.options[i] = null;
+              }
+
+              var result = Object.keys(data).map(function (key) { 
+                return data[key]; 
+              }); 
+
+              for(var i = 0, l = result.length; i < l; i++){
+                var option = result[i];
+
+                states.options.add(new Option(option) );
+              }
+            });
+          });
+        </script>
+
+        <div class="field">
+          <label class="label"> State </label>
+          <div class="control">
+            <div class="select">
+
+              <%= select(:client, :state_id, [], required: true)%>
+            </div>
+          </div>
+        </div>
+    </section>
+    <footer class="modal-card-foot">
+        <%= submit_tag "Add", class: "button is-primary" %>
+      <% end %>
+      <button id="cancel" class="button">Cancel</button>
+    </footer>
+  </div>
+</div>
+
+<%= javascript_pack_tag "update_address_select", 'data-turbolinks-track': 'reload' %>

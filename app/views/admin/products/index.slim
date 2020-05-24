@@ -1,0 +1,30 @@
+.container.is-fluid.has-mb-60
+  h1.title.is-1.has-text-centered.has-mt-24 All products
+  .columns
+    .column.is-2
+      = sidebar({'type': "All Products"})
+    .column.is-8.content.is-mb-60
+      = products_table(all_products) 
+    .column
+      .sticky
+        .box.has-mt-24.hide-mob
+          p Add a new product
+          br
+          = link_to "New product", new_admin_product_path, class: "button is-primary"
+        
+        .box.has-mt-24.hide-mob
+          p Import products from CSV
+          br
+          = render 'admin/customers/clients/new_user_modal'
+
+          .field
+            .control
+              .file.has-name
+                label.file-label
+                  input.file-input type="file" name="csv" id="csv"
+                  span.file-cta
+                    span.file-icon
+                      i.fas.fa-upload
+                    span.file-label Choose a file…
+                  span.file-name
+          button.button.is-info Upload!

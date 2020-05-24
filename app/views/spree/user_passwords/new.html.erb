@@ -1,0 +1,36 @@
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @spree_user } %>
+
+<div class="is-flex is-flex-centered is-full-height">
+  <div class="column is-two-thirds" style="max-width: 600px">
+    <div class="container">
+      <div class="box"><div class="is-flex is-flex-centered">
+        <div class="column is-two-thirds" style="max-width: 600px">
+          <div class="container">
+            <h1 class="has-text-centered title is-1"><%= Spree.t(:forgot_password) %></h1>
+
+            <div class="box">
+
+              <p><%= Spree.t(:instructions_to_reset_password) %></p>
+              <%= form_for Spree.user_class.new, as: :spree_user, url: spree.reset_password_path do |f| %>
+
+                <div class="field">
+                  <div class="control has-icons-left">
+                    <%= f.email_field :email, class: "input", placeholder: Spree.t(:email) %>
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control has-icons-left">
+                    <%= f.submit Spree.t(:reset_password), class: 'button is-primary' %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

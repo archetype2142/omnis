@@ -1,0 +1,37 @@
+<div class="container is-fluid">
+  <h1 class="title is-1 has-text-centered has-mt-24"> Orders Section </h1>
+  <div class="columns">
+    <div class="column is-2">
+      <%=sidebar({'type': 'Orders', \
+        items: { \
+          'New Order': "#{new_admin_order_path}", \
+          'All Orders': "#{admin_orders_path}" \
+        } } )%>
+    </div>
+    <div class="column is-8 content" style="height: 150vh;">
+    </div>
+    <div class="column">
+      <div class="sticky">
+        <div class="box has-mt-24 hide-mob">
+          <p>Search/Scan/Filter/Notes</p>
+          <br/>
+          <button id="open-modal" class="button is-primary"> New Client </button>
+        </div>
+
+        <div class="box has-mt-24 hide-mob">
+          <p>Search/Scan/Filter/Notes</p>
+          <br/>
+          <button id="open-modal" class="button is-primary"> New Order </button>
+        </div>
+
+        <div class="box has-mt-24 hide-mob">
+          <p>Search/Scan/Filter/Notes</p>
+          <br/>
+          <button id="open-modal" class="button is-info"> New Order </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div> 
+

@@ -1,0 +1,7 @@
+<%= form_with url: admin_orders_path, method: :post do %>
+
+  <div id="client_autocomplete"></div>
+    
+<% end %>
+
+<%= javascript_pack_tag 'client_autocomplete', 'data-turbolinks-track': 'reload' %>

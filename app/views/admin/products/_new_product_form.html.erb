@@ -1,0 +1,63 @@
+<div class="box">
+  <%= form_with url: admin_products_path, method: :post,  html: { multipart: true } do %>
+    <h3 class="title is-4 has-text-centered"> Product Information </h3>
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <%= text_field :product, :name, placeholder: "Name", class: "input", required: true %>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">SKU</label>
+      <div class="control">
+        <%= text_field :product, :sku, placeholder: "SKU", class: "input", required: true%>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Price</label>
+      <div class="control">
+        <div class="field has-addons">
+          <p class="control">
+            <%= text_field :product, :price, placeholder: "Price", class: "input", required: true%>
+          </p>
+          <p class="control">
+            <div class="select">
+              <%= select(:product, :currency, currency_codes(which: ['PLN', 'USD'])) %>
+            </div>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="column is-centered">
+        <div class="field">
+          <label class="label">Tax Category</label>
+          <div class="control">
+            <div class="select">
+              <%= select(:product, :tax_category_id, Spree::TaxCategory.all.map{ |t| [t.name, t.id]}) %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-centered">
+        <div class="field">
+          <label class="label">Shipping Category</label>
+          <div class="control">
+            <div class="select">
+              <%= select(:product, :shipping_category_id, Spree::ShippingCategory.all.map{ |t| [t.name, t.id]}) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field has-mt-24">
+      <div class="control">
+        <%= submit_tag "Create!", class: "button is-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

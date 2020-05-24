@@ -1,0 +1,54 @@
+<div class="box sidebar sticky hide-mob">
+  <aside class="menu is-fixed-top">
+    <h1 class="title is-5 has-mt-24"> <%= locals[:type] %></h1>
+    <% if locals[:items] %>
+      <ul class="menu-list">
+        <li>
+          <b> Custom Methods </b>
+          <ul>
+            <% locals[:items]&.each do |item| %>
+              <li> <%= link_to item[0], item[1] %> </li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+    <% end %>
+
+    <p class="menu-label">
+      General
+    </p>
+    <ul class="menu-list">
+      <li>
+        <%= link_to "Dashboard", root_path %>
+      </li>
+      <li>
+        <%= link_to "Customers", admin_customers_clients_path %>
+      </li>
+    </ul>
+   <!--  <p class="menu-label">
+      Administration
+    </p>
+    <ul class="menu-list">
+      <li><a>Team Settings</a></li>
+      <li>
+        <a>Manage Your Team</a>
+        <ul>
+          <li><a>Members</a></li>
+          <li><a>Plugins</a></li>
+          <li><a>Add a member</a></li>
+        </ul>
+      </li>
+      <li><a>Invitations</a></li>
+      <li><a>Cloud Storage Environment Settings</a></li>
+      <li><a>Authentication</a></li>
+    </ul>
+    <p class="menu-label">
+      Transactions
+    </p>
+    <ul class="menu-list">
+      <li><a>Payments</a></li>
+      <li><a>Transfers</a></li>
+      <li><a>Balance</a></li>
+    </ul> -->
+  </aside>
+</div>
