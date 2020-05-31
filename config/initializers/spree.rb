@@ -9,12 +9,15 @@
 #
 # In order to initialize a setting do:
 # config.setting_name = 'new value'
+SpreeStorefrontConfig = YAML.load_file(Rails.root.join('config', 'spree_storefront.yml')).with_indifferent_access
+
 Spree.config do |config|
   # Example:
   # Uncomment to stop tracking inventory levels in the application
   # config.track_inventory_levels = false
   config.address_requires_phone = false
   config.currency = "PLN"
+  config.logo = "logo.svg"
 end
 
 # Configure Spree Dependencies

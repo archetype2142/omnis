@@ -42,10 +42,11 @@ class ClientSearch extends Component {
   render() { 
     let list;
     let items = this.state.results;
+    let client_search = '';
+
     if(Object.values(items).length == 0 && !this.state.shouldHide) {
       list = <li> No Results Found </li>;
-    }
-    else {
+    } else {
       list = Object.values(items).map(item => <li 
         onClick={this.handleClick(item)}
         key={item[0]} 
@@ -53,7 +54,6 @@ class ClientSearch extends Component {
         value={item[1]}>{item[1]}</li>
       );
     }
-    let client_search = '';
 
     if(this.state.shouldHide === false)
       client_search = 
@@ -73,9 +73,7 @@ class ClientSearch extends Component {
             {list}
           </ul>
         </div>;
-    else {
-      client_search = <h1 className="title">{this.state.client[1]}</h1>;
-    }
+    else { client_search = <h1 className="title">{this.state.client[1]}</h1>; }
 
     return(
       <div className="field box">
@@ -85,6 +83,5 @@ class ClientSearch extends Component {
     )
   }
 }
-
 
 export default ClientSearch;

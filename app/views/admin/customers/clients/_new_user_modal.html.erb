@@ -36,7 +36,7 @@
           <label class="label">Client type</label>
           <div class="control">
             <div class="select">
-              <%= select(:client_type, :type_id, [['individual', 1], ['company', 2]]) %>
+              <%= select(:client_type, :type_id, [['b2c', 1], ['b2b', 2]]) %>
             </div>
           </div>
         </div>
@@ -74,12 +74,21 @@
           </div>
         </div>
 
+        <div class="field">
+          <label class="label">Zipcode</label>
+          <div class="control">
+            <%= text_field :client, :zipcode, class: "input", required: true %>
+          </div>
+        </div>
+
         <script>
-          fetch('/api/v1/states/Poland')
+          fetch("/api/v1/states?country_id=<%= Spree::Country.where(iso: "PL").first.id %>")
           .then(response => response.json())
           .then(function(data) {
-            var result = Object.keys(data).map(function (key) { 
-              return data[key]; 
+            console.log(data['states'][0]['name']);
+
+            var result = data['states'].map(function (state) { 
+              return state['name']; 
             }); 
 
             for(var i = 0, l = result.length; i < l; i++){

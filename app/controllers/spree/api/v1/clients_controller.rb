@@ -3,7 +3,6 @@ module Spree
     module V1
       class ClientsController < ApplicationController
         def index
-          puts "abx"
           client = params[:q].to_s
           array = Address.where(
             "firstname ilike ? OR

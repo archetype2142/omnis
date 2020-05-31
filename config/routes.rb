@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   mount Spree::Core::Engine, at: "/"
   
   Spree::Core::Engine.add_routes do
-    namespace :api do 
+    namespace :api, defaults: { format: 'json' } do 
       namespace :v1 do 
         resources :clients, only: :index
+        resources :user_prices, only: [:index]
       end
     end        
   end

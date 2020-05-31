@@ -21,6 +21,10 @@
 // @import "./atlas";
 // @import "./tables";
 
+.hide {
+  display: none;
+}
+
 .is-flex {
   display: flex;
 }
@@ -99,4 +103,13 @@ ul.search-results {
 
 .old-order-box:hover {
   background-color: map-get($management, 'tangerine-50');
+}
+
+.new-search-results{
+  border: 1px solid black;
+  overflow: auto;
+  max-height: 400px;
+  list-style: none !important;
+  margin-left: none !important;
+  margin-top: none !important; 
 }

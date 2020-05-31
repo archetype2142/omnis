@@ -19,13 +19,18 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 gem 'spree_core'
+gem 'spree_frontend'
 gem 'spree_gateway', '~> 3.7'
 gem 'spree_api'
+
 gem 'spree_auth_devise', '~> 4.1'
+# gem 'spree_i18n'
+
 # gem 'will_paginate', '~> 3.1.0'
 gem 'money-rails', '~>1.12'
 gem 'monetize'
 gem 'slim'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

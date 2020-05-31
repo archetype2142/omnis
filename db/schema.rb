@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_23_204596) do
+ActiveRecord::Schema.define(version: 2020_05_31_164201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,18 @@ ActiveRecord::Schema.define(version: 2020_05_23_204596) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "special_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_special_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_special_users_on_reset_password_token", unique: true
   end
 
   create_table "spree_addresses", id: :serial, force: :cascade do |t|
@@ -241,6 +253,7 @@ ActiveRecord::Schema.define(version: 2020_05_23_204596) do
     t.decimal "pre_tax_amount", precision: 12, scale: 4, default: "0.0", null: false
     t.decimal "taxable_adjustment_total", precision: 10, scale: 2, default: "0.0", null: false
     t.decimal "non_taxable_adjustment_total", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "list_price", precision: 10, scale: 2, default: "0.0"
     t.index ["order_id"], name: "index_spree_line_items_on_order_id"
     t.index ["tax_category_id"], name: "index_spree_line_items_on_tax_category_id"
     t.index ["variant_id"], name: "index_spree_line_items_on_variant_id"
@@ -446,6 +459,17 @@ ActiveRecord::Schema.define(version: 2020_05_23_204596) do
     t.index ["key"], name: "index_spree_preferences_on_key", unique: true
   end
 
+  create_table "spree_price_books", force: :cascade do |t|
+    t.string "currency"
+    t.boolean "discount", default: false, null: false
+    t.string "name"
+    t.bigint "user_id"
+    t.boolean "default", default: false, null: false
+    t.datetime "active_from"
+    t.datetime "active_to"
+    t.index ["user_id"], name: "index_spree_price_books_on_user_id"
+  end
+
   create_table "spree_prices", id: :serial, force: :cascade do |t|
     t.integer "variant_id", null: false
     t.decimal "amount", precision: 10, scale: 2
@@ -453,6 +477,7 @@ ActiveRecord::Schema.define(version: 2020_05_23_204596) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "price_book_id"
     t.index ["deleted_at"], name: "index_spree_prices_on_deleted_at"
     t.index ["variant_id", "currency"], name: "index_spree_prices_on_variant_id_and_currency"
     t.index ["variant_id"], name: "index_spree_prices_on_variant_id"
@@ -1075,10 +1100,14 @@ ActiveRecord::Schema.define(version: 2020_05_23_204596) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "spree_api_key", limit: 48
+    t.integer "client_type", default: 0
+    t.bigint "special_user_id"
+    t.integer "manager_id"
     t.index ["bill_address_id"], name: "index_spree_users_on_bill_address_id"
     t.index ["deleted_at"], name: "index_spree_users_on_deleted_at"
     t.index ["email"], name: "email_idx_unique", unique: true
     t.index ["ship_address_id"], name: "index_spree_users_on_ship_address_id"
+    t.index ["special_user_id"], name: "index_spree_users_on_special_user_id"
     t.index ["spree_api_key"], name: "index_spree_users_on_spree_api_key"
   end
 

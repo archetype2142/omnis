@@ -1,5 +1,5 @@
 module Admin
-  class ProductsController < ::ApplicationController  
+  class ProductsController < Admin::ApplicationController  
     helper ProductsHelper
     
     before_action :set_product, only: [:show, :update, :destroy]
@@ -44,7 +44,6 @@ module Admin
     end
 
     def update
-      puts params
       if @product.update(product_params)
         respond_to do |format|
           format.html { redirect_to admin_product_path(@product), flash: { 'is-primary': "Updated Successfully!"} }
@@ -81,7 +80,7 @@ module Admin
       {
         name: params[:product]['name'],
         sku: params[:product]['sku'],
-        price: Monetize.parse("#{params[:product]['price']} #{params[:product]['currency']}"),
+        default_price: Monetize.parse("#{params[:product]['price']} #{params[:product]['currency']}"),
         cost_price: params[:product]['cost_price'],
         tax_category_id: params[:product]['tax_category_id'],
         shipping_category_id: params[:product]['shipping_category_id'],

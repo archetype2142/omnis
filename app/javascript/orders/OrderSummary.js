@@ -10,11 +10,12 @@ class OrderSummary extends Component {
       selectedOrderSummary: [],
       shouldHide: false
     };
+
     this.updatePrice = this.updatePrice.bind(this);
   }
 
   updatePrice = (event, index) => {
-    event.preventDefault();
+    event.preventDefault();    
     let selectedOrderSummary = this.props.selectedOrderSummary;
 
     selectedOrderSummary[index].display_amount = 
@@ -26,6 +27,7 @@ class OrderSummary extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(this.state.selectedOrderSummary);
     this.setState({selectedOrderSummary: nextProps.selectedOrderSummary})
   }
 
@@ -33,11 +35,14 @@ class OrderSummary extends Component {
     let summary = this.state.selectedOrderSummary.length > 0 ? 
       this.state.selectedOrderSummary.map((value, index)=>(
         <tr key={index}>
-          <th>{value['variant']['name']}</th>
+          <th>{value['sku']}</th>
+          <th>{value['name']}</th>
           <td>{value.price}</td>
           <td>
             <input
-              onChange={(e) => e.target.value < 0 ? e.preventDefault() : this.updatePrice(e, index)} 
+              onChange={(e) => {
+                e.target.value < 0 ? e.preventDefault() : this.updatePrice(e, index);
+              }} 
               className="input" 
               min="0"
               style={{width: '33%'}} 
@@ -56,6 +61,7 @@ class OrderSummary extends Component {
         <table className="table">
           <thead>
             <tr>
+              <th><abbr title="SKU">SKU</abbr></th>
               <th><abbr title="Name">Name</abbr></th>
               <th><abbr title="Price">Price</abbr></th>
               <th><abbr title="Quantity">Quantity</abbr></th>

@@ -13,7 +13,7 @@
       <% all_users.each do |user| %>
         <tr onclick="window.location='<%= admin_customers_client_path(user) %>'">
           <th><%= fullname(user) %></th>
-          <th><%= user&.spree_roles&.first&.name %> </th>
+          <th><%= user&.spree_roles&.first&.name || user.client_type %> </th>
           <th class="hide-mob"><%= user.email %></th>
           <th>abc</th>
           <th>abc</th>

@@ -4,7 +4,7 @@
       <h1 class="has-text-centered title is-1">Log in</h1>
 
       <div class="box">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= form_for Spree.user_class.new, as: :spree_user, url: spree_login_path do |f| %>
           <div class="field">
             <%= f.label :email, class: "label" %>
             <div class="control has-icons-left has-icons-right">

@@ -4,18 +4,28 @@ module Admin
     helper_method :user 
 
     def create
-      u = Spree::User.create!(
+      puts params
+      
+      usr = Spree::User.new(
         email: params[:user]['address'],
         password: 'default'
       )
+      
+      ActiveRecord::Base.transaction do
+        if usr.save
+          redr = admin_customers_client_path(usr)
+          notice = { notice: "created new product" }
 
-      Address.create!(
-        address_params.merge({user: u})
-      )
+          Spree::Address.create!(
+            address_params.merge({user: usr})
+          ) 
+        else
+          redr = admin_customers_clients_path
+          notice = { alert: usr.errors }
+        end
+      end
 
-      u.add_role role_return(params[:client_type]['type_id'].to_i)
-
-      redirect_to customers_clients_path
+      redirect_to redr, flash: notice 
     end
     
     def index; end
@@ -31,20 +41,11 @@ module Admin
         address1: params['client']['address1'],
         address2: params['client']['address2'],
         company: params['client']['company'],
-        country: Country.find_by(name: params['client']['country_id']),
+        country: Spree::Country.find_by(name: params['client']['country_id']),
         city: params['client']['city'],
-        state: State.find_by(name: params['client']['state_id'])
+        state: Spree::State.find_by(name: params['client']['state_id']),
+        zipcode: params['client']['zipcode']
       }
-    end
-
-    def role_return num
-      if num == 1
-        :company
-      elsif num == 2
-        :individual
-      else
-        :unknown
-      end
     end
 
     def user

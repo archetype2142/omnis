@@ -1,0 +1,42 @@
+default:
+  navigation:
+    - title: furnitures
+      url: /t/furniture
+      subtitle: Categories
+      url: /t/furniture
+      items:
+        - :title: table
+          :url: /t/furniture/tables
+        - :title: stillages-and-consoles
+          :url: /t/furniture/stillages-and-consoles
+        - :title: armchairs
+          :url: /t/furniture/armchairs
+        - :title: chairs
+          :url: /t/furniture/chairs
+        - :title: bedside_cabinets
+          :url: /t/furniture/bedside-cabinets
+
+    - title: lighting
+      url: /t/lights
+      subtitle: Categories
+      url: /t/lights
+      
+      items:
+        - :title: chandeliers
+          :url: /t/lights/chandeliers
+        - :title: table_lamp
+          :url: /t/lights/table-lamp
+        - :title: floor_lamp
+          :url: /t/lights/floor-lamp
+        - :title: sconces
+          :url: /t/lights/sconces
+        - :title: lampshade
+          :url: /t/lights/lampshade
+        - :title: bulbs
+          :url: /t/lights/bulbs
+
+    - title: accessories
+      url: /t/accessories
+
+    - title: implementation
+      url: http://luxurydesign.pl
