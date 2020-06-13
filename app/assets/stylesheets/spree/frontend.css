@@ -4,3 +4,31 @@
  *= require spree/frontend/application
  *= require_self
 */
+
+.sale-price {
+  font-size: 1.5rem;
+}
+
+.orig-price {
+  font-weight: lighter;
+}
+
+.sale-percent {
+  font-weight: lighter;
+  color: #3273DC;
+}
+
+.product-component-name {
+  color: #3273DC;
+}
+
+.main-nav-bar {
+  background: white;
+}
+
+.product-image-car {
+  transition: transform .5s ease;
+}
+.product-image-car:hover {
+  transform: scale(1.1);
+}

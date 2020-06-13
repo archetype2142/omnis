@@ -78,15 +78,18 @@
     }
 
     h3 {
+      overflow: hidden !important;
       margin: 0;
       width: auto;
-      background: $primary-background;
+      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      // background: $primary-background;
       text-align: center;
       font-size: font-px-to-rem(14px);
       font-weight: 500;
       line-height: 2;
       letter-spacing: 0.35px;
       padding: 0 5%;
+      color: white;
 
       @include media-breakpoint-up(md) {
         font-size: font-px-to-rem(24px);
@@ -106,14 +109,27 @@
     }
 
     &-text {
+      font-weight: bolder;
       width: 100%;
-      text-transform: uppercase;
-      color: $font-color;
+      height: 50%;
+      overflow: hidden;
+      margin: auto;
       position: absolute;
+      top: 0;
       left: 0;
-      bottom: 21px;
-      justify-content: center;
+      bottom: 0;
+      right: 0;
       display: flex;
+      justify-content: center;
+      align-items: center;
+      // width: 100%;
+      // text-transform: uppercase;
+      // color: $font-color;
+      // position: absolute;
+      // left: 0;
+      // bottom: 21px;
+      // justify-content: center;
+      // display: flex;
     }
   }
 

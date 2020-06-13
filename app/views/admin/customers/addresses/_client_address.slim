@@ -1,0 +1,205 @@
+.columns
+  .column.box style="margin-right: 10px !important"
+    h1 Billing
+    = form_with model: user, url: admin_customers_address_path, method: :put do |f|
+      = f.fields_for :bill_address, (user.bill_address || Spree::Address.default(user, "bill")) do |ba_form| 
+        - ba_form.object ||= Spree::Address.new(country: Spree::Country.new)
+        - type = "billing"
+        input type="hidden" name="user[use_billing]" id="user_use_billing"
+        .columns
+          .column
+            = field_container ba_form.object, :firstname, class: ["field", "#{type}-row"] do 
+            = ba_form.label :firstname, class: 'label'
+            .control
+              = ba_form.text_field :firstname, class: 'input' 
+              = error_message_on ba_form.object, :firstname 
+          .column
+            = field_container ba_form.object, :lastname, class: ["field", "#{type}-row"] do 
+            = ba_form.label :lastname, class: 'label'
+            .control
+              = ba_form.text_field :lastname, class: 'input' 
+              = error_message_on ba_form.object, :lastname 
+        .columns
+          .column
+            = field_container ba_form.object, :company, class: ["field", "#{type}-row"] do 
+            = ba_form.label :company, class: 'label'
+            .control
+              = ba_form.text_field :company, class: 'input' 
+              = error_message_on ba_form.object, :company 
+          .column
+            = field_container ba_form.object, :tax_id, class: ["field", "#{type}-row"] do 
+            = ba_form.label :tax_id, "Tax Id", class: 'label'
+            .control
+              = ba_form.text_field :tax_id, class: 'input' 
+              = error_message_on ba_form.object, :tax_id
+        .columns
+          .column
+            = field_container ba_form.object, :address1, class: ["field", "#{type}-row"] do 
+            = ba_form.label :address1, "Street Address 1", class: 'label'
+            .control
+              = ba_form.text_field :address1, class: 'input' 
+              = error_message_on ba_form.object, :address1 
+          .column
+            = field_container ba_form.object, :address2, class: ["field", "#{type}-row"] do 
+            = ba_form.label :address2, "Street Address 2", class: 'label'
+            .control
+              = ba_form.text_field :address2, class: 'input' 
+              = error_message_on ba_form.object, :address2 
+        .columns
+          .column
+            = field_container ba_form.object, :country, class: ["field", "#{type}-row"] do 
+            = ba_form.label :country, class: 'label'
+            .control
+              .select
+                = ba_form.collection_select :country_id, available_countries, :id, :name, {}, { class: 'input is-fullwidth' }
+              = error_message_on ba_form.object, :country 
+          .column
+            = field_container ba_form.object, :state, class: ["field", "#{type}-row"] do 
+            = ba_form.label :state, class: 'label'
+            .control
+              .select
+                select name="user[bill_address_attributes][state_id]" id="user_bill_address_attributes_state" 
+              = error_message_on ba_form.object, :state 
+        .columns
+          .column
+            = field_container ba_form.object, :city, class: ["field", "#{type}-row"] do 
+            = ba_form.label :city, class: 'label'
+            .control
+              = ba_form.text_field :city, class: 'input' 
+              = error_message_on ba_form.object, :city 
+          .column
+            = field_container ba_form.object, :zipcode, class: ["field", "#{type}-row"] do 
+            = ba_form.label :zipcode, class: 'label'
+            .control
+              = ba_form.text_field :zipcode, class: 'input' 
+              = error_message_on ba_form.object, :zipcode
+        .columns
+          .column
+            = field_container ba_form.object, :phone, class: ["field", "#{type}-row"] do 
+            = ba_form.label :phone, "Phone Number", class: 'label'
+            .control
+              = ba_form.text_field :phone, class: 'input' 
+              = error_message_on ba_form.object, :phone 
+        = f.submit "Update!", class: 'button is-primary'
+  .column.box style="height: fit-content;"
+    h1 Shipping
+
+    label class="checkbox has-mb-18"
+      input type="checkbox" id="same_as_billing"
+      | &nbsp; Same as Billing Address
+    span id="shipping_address_mount"
+    
+    = form_with model: user, url: admin_customers_address_path, method: :put, id: "shipping_address_form" do |f|
+      = f.fields_for :ship_address, (user.ship_address || Spree::Address.default(user, "ship")) do |sa_form| 
+        - sa_form.object ||= Spree::Address.new(country: Spree::Country.new)
+        - type = "shipping"
+        .columns
+          .column
+            = field_container sa_form.object, :firstname, class: ["field", "#{type}-row"] do 
+            = sa_form.label :firstname, class: 'label'
+            .control
+              = sa_form.text_field :firstname, class: 'input' 
+              = error_message_on sa_form.object, :firstname 
+          .column
+            = field_container sa_form.object, :lastname, class: ["field", "#{type}-row"] do 
+            = sa_form.label :lastname, class: 'label'
+            .control
+              = sa_form.text_field :lastname, class: 'input' 
+              = error_message_on sa_form.object, :lastname 
+        .columns
+          .column
+            = field_container sa_form.object, :company, class: ["field", "#{type}-row"] do 
+            = sa_form.label :company, class: 'label'
+            .control
+              = sa_form.text_field :company, class: 'input' 
+              = error_message_on sa_form.object, :company 
+          .column
+            = field_container sa_form.object, :tax_id, class: ["field", "#{type}-row"] do 
+            = sa_form.label :tax_id, "Tax Id", class: 'label'
+            .control
+              = sa_form.text_field :tax_id, class: 'input' 
+              = error_message_on sa_form.object, :tax_id
+        .columns
+          .column
+            = field_container sa_form.object, :address1, class: ["field", "#{type}-row"] do 
+            = sa_form.label :address1, "Street Address 1", class: 'label'
+            .control
+              = sa_form.text_field :address1, class: 'input' 
+              = error_message_on sa_form.object, :address1 
+          .column
+            = field_container sa_form.object, :address2, class: ["field", "#{type}-row"] do 
+            = sa_form.label :address2, "Street Address 2", class: 'label'
+            .control
+              = sa_form.text_field :address2, class: 'input' 
+              = error_message_on sa_form.object, :address2 
+        .columns
+          .column
+            = field_container sa_form.object, :country, class: ["field", "#{type}-row"] do 
+            = sa_form.label :country, class: 'label'
+            .control
+              .select
+                = sa_form.collection_select :country_id, available_countries, :id, :name, {}, { class: 'input is-fullwidth' }
+              = error_message_on sa_form.object, :country 
+          .column
+            = field_container sa_form.object, :state, class: ["field", "#{type}-row"] do 
+            = sa_form.label :state, class: 'label'
+            .control
+              .select
+                select name="user[ship_address_attributes][state_id]" id="user_ship_address_attributes_state" 
+              = error_message_on sa_form.object, :state 
+        .columns
+          .column
+            = field_container sa_form.object, :city, class: ["field", "#{type}-row"] do 
+            = sa_form.label :city, class: 'label'
+            .control
+              = sa_form.text_field :city, class: 'input' 
+              = error_message_on sa_form.object, :city 
+          .column
+            = field_container sa_form.object, :zipcode, class: ["field", "#{type}-row"] do 
+            = sa_form.label :zipcode, class: 'label'
+            .control
+              = sa_form.text_field :zipcode, class: 'input' 
+              = error_message_on sa_form.object, :zipcode
+        .columns
+          .column
+            = field_container sa_form.object, :phone, class: ["field", "#{type}-row"] do 
+            = sa_form.label :phone, "Phone Number", class: 'label'
+            .control
+              = sa_form.text_field :phone, class: 'input' 
+              = error_message_on sa_form.object, :phone 
+        = f.submit "Update!", class: 'button is-primary'
+
+javascript:
+  var same_checkbox = document.querySelector('#same_as_billing');
+  var checked = "#{user.bill_address == user.ship_address}";
+
+  if (checked === 'true') same_checkbox.checked = true;
+
+  fetch("/api/v1/states?country_id=#{Spree::Country.where(iso: 'PL').first.id}")
+  .then(response => response.json())
+  .then(function(data) {
+    var result = data['states'].map(function (state) { 
+      return [state['name'], state['id']]; 
+    }); 
+    
+    var selected_bill_state_id = "#{user&.bill_address&.state&.id}";
+    var selected_ship_state_id = "#{user&.ship_address&.state&.id}";
+
+    let bill_bool = false;
+    let ship_bool = false
+
+    for(var i = 0, l = result.length; i < l; i++){
+      bill_bool = ship_bool = false;
+      if (selected_bill_state_id == result[i][1]) {
+        bill_bool = true;
+      }
+
+      if (selected_ship_state_id == result[i][1]) {
+        ship_bool = true;
+      }
+
+      document.querySelector('#user_bill_address_attributes_state').options.add(new Option(result[i][0], result[i][1], false, bill_bool) );
+       document.querySelector('#user_ship_address_attributes_state').options.add(new Option(result[i][0], result[i][1], false, ship_bool) );
+    }
+  });
+= javascript_pack_tag "ship_bill_address_checkbox", 'data-turbolinks-track': 'reload' 

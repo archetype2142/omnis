@@ -11,9 +11,22 @@ module ApplicationHelper
     end
   end
 
+  def available_client_types 
+    type = {}
+    types = Spree::User.client_types.collect { |t, id| { name: t, id: id} }
+    # .map do |t, id|
+    #   {
+    #     name: t,
+    #     id: id
+    #   }
+    # end
+    types
+  end
+
   def fullname(user)
     return if user.addresses.empty?
-    user.addresses&.first&.company || "#{user.addresses&.first&.firstname} #{user.addresses&.first&.lastname}"
+    return "#{user.bill_address&.firstname} #{user.bill_address&.lastname}" if user.bill_address&.company == nil || user.bill_address&.company == '' 
+    user&.bill_address&.company     
   end
 
   def available_states(country_id)
@@ -22,11 +35,11 @@ module ApplicationHelper
     )
   end
 
-  # def display_price(product_or_variant)
-  #   humanized_money ( product_or_variant.
-  #   price_in(current_currency).
-  #   display_price_including_vat_for(current_price_options) )
-  # end
+  def display_price(product_or_variant)
+    humanized_money ( product_or_variant.
+    price_in(current_currency).
+    display_price_including_vat_for(current_price_options) )
+  end
 
   def display_price(product_or_variant)
     money = Monetize.parse(product_or_variant.price)

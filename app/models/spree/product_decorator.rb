@@ -12,5 +12,8 @@ Spree::Product.class_eval do
     price = master_price_for(price_book)
     Spree::Money.new(price.amount, currency: price_book.currency)
   end
-  
+
+  def sale_price
+    master.sale_price
+  end
 end

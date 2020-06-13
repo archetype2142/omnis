@@ -26,10 +26,10 @@ gem 'spree_api'
 gem 'spree_auth_devise', '~> 4.1'
 # gem 'spree_i18n'
 
-# gem 'will_paginate', '~> 3.1.0'
 gem 'money-rails', '~>1.12'
 gem 'monetize'
 gem 'slim'
+gem 'sidekiq'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

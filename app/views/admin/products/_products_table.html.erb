@@ -1,35 +1,36 @@
-<table class="table is-striped is-narrow is-hoverable is-fullwidth has-mt-24">
-  <thead class="has-bg-peach-pop-40">
-    <tr>
-      <th><abbr title="SKU">SKU</abbr></th>
-      <th><abbr title="Name">Name</abbr></th>
-      <th><abbr title="Photo">Photo</abbr></th>
-      <th class="hide-mob"><abbr title="Category">Category</abbr></th>
-      <th><abbr title="Base">Price</abbr></th>
-      <th><abbr title="Stock">Stock</abbr></th>
-      <th class="hide-mob"><abbr title="Status">Status</abbr></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% all_products.each do |product| %>
-      <tr onclick="window.location='<%= admin_product_path(product) %>'">
-        <th><%= product.sku %> </th>
-        <th><%= product.name %></th>
-        <% if product.images.any? %>
-          <th style="line-height: initial; display: flex; justify-content: center;">
-            <%= image_tag default_image_for_product_or_variant(product).url(:small) %>
-          </th>
-        <% else %>
+<div class="table__wrapper">
+  <table class="table is-striped is-narrow is-hoverable is-fullwidth has-mt-24">
+    <thead class="has-bg-peach-pop-40">
+      <tr>
+        <th><abbr title="SKU">SKU</abbr></th>
+        <th><abbr title="Photo">Photo</abbr></th>
+        <th><abbr title="Name"><%= sort_link(@q, :name) %></abbr></th>
+        <th class="hide-mob"><abbr title="Category">Category</abbr></th>
+        <th><abbr title="Price"><%= sort_link @q, :master_default_price_amount, "Price", {}, {title: 'admin_products_listing_price_title'} %></abbr></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr onclick="window.location='<%= admin_product_path(product) %>'">
+          <th><%= product.sku.truncate(15) %> </th>
+          <% if product.images.any? %>
+            <th>
+              <%= image_tag default_image_for_product_or_variant(product).url(:mini), class: "image is-64x64" %>
+            </th>
+          <% else %>
+            <th>
+            </th>
+          <% end %>
           <th>
+            <%= product.name.truncate(30) %>
           </th>
-        <% end %>
-        <th class="hide-mob"><%= product_catetgory(product) %></th>
-        <th><%= display_price(product) %></th>
-        <th><%= product.stock_items.pluck(:count_on_hand).inject(:+) %></th>
-        <th class="hide-mob">Status</th>
-      </tr> 
-    <% end %>
-  </tbody>
-</table>
+          <th class="hide-mob"><%= product_catetgory(product) %></th>
+          <th><%= display_price(product) %></th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
+<%= paginate @products %>
 

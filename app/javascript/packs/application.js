@@ -1,5 +1,4 @@
 import "@fortawesome/fontawesome-free/js/all";
-import 'stylesheets/application.scss';
 
 // This file is automatically compiled by Webpack, along with any other files
 // present in this directory. You're encouraged to place your actual application logic in
@@ -35,14 +34,4 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  (document.querySelectorAll('.notification .delete') || []).forEach((del) => {
-    var notification = del.parentNode;
-
-    del.addEventListener('click', () => {
-      notification.parentNode.removeChild(notification);
-    });
-  });
 });

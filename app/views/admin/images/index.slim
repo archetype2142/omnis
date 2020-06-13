@@ -1,4 +1,16 @@
-.container
-  = render 'admin/images/images_table'
-  
-  = render 'admin/images/new_image_form'
+- tab_name = :images
+.container.is-fluid.has-mb-60
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-4-touch = @product.name
+  .columns
+    .column.is-2
+      = sidebar(single_product_sidebar_items(@product))
+    .column.is-8.content.has-mb-60
+      = product_tabs(tab_name)
+      
+      = render 'admin/images/images_table'
+      = render 'admin/images/new_image_form'
+    .column
+      .box.has-mt-24.sticky.hide-mob
+        p Search/Scan/Filter/Notes
+        br
+        button.button.is-primary New Client

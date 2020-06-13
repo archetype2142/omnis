@@ -17,27 +17,28 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Spree::TaxCategory.all.destroy_all
-Spree::ShippingCategory.all.destroy_all
-Spree::Address.all.destroy_all
-Spree::User.all.destroy_all
-Spree::Product.all.destroy_all
-Spree::Country.all.destroy_all
-Spree::Role.all.destroy_all
-Spree::Zone.all.destroy_all
-Spree::StockLocation.all.destroy_all
-Spree::StockItem.all.destroy_all
+# Spree::TaxCategory.all.destroy_all
+# Spree::ShippingCategory.all.destroy_all
+# Spree::Address.all.destroy_all
+# Spree::User.all.destroy_all
+# Spree::Product.all.destroy_all
+# Spree::Country.all.destroy_all
+# Spree::Role.all.destroy_all
+# Spree::Zone.all.destroy_all
+# Spree::StockLocation.all.destroy_all
+# Spree::StockItem.all.destroy_all
+# Spree::Taxonomy.all.destroy_all
 
 Spree::Zone.create!(name: 'Poland', default_tax: true)
-# c = Spree::Country.create!(name: "Poland", iso: "PL", iso3: "POL", iso_name: "Poland")
-# poland_sates = %w[dolnośląskie kujawsko-pomorskie lubelskie lubuskie łódzkie 
-#                   małopolskie mazowieckie opolskie podkarpackie podlaskie 
-#                   pomorskie śląskie świętokrzyskie warmińsko-mazurskie 
-#                   wielkopolskie zachodniopomorskie ]
-# poland_sates.each do |state|
-#   c.states << Spree::State.new(name: state)
-# end
-
+c = Spree::Country.create!(name: "Poland", iso: "PL", iso3: "POL", iso_name: "Poland")
+poland_sates = %w[dolnośląskie kujawsko-pomorskie lubelskie lubuskie łódzkie 
+                  małopolskie mazowieckie opolskie podkarpackie podlaskie 
+                  pomorskie śląskie świętokrzyskie warmińsko-mazurskie 
+                  wielkopolskie zachodniopomorskie ]
+poland_sates.each do |state|
+  c.states << Spree::State.new(name: state)
+end
+Spree::Taxonomy.create!(name: 'sale')
 u = Spree::User.create!(email: 'test@test.com', password: 'test123')
 
 tax_category = Spree::TaxCategory.create!(name: "24% VAT")
@@ -83,3 +84,10 @@ image = Spree::Image.new(attachment:{io: i, filename: "#{rand(1..210)}.jpg"})
     phone: '+4857751111'
   )
 end
+
+t = Spree::Taxonomy.where(name: 'sale').first.taxons.first
+
+(1..5).each do 
+  Spree::Product.all.sample.taxons << t
+end
+

@@ -1,6 +1,6 @@
 default:
   navigation:
-    - title: furnitures
+    - title: kuchina
       url: /t/furniture
       subtitle: Categories
       url: /t/furniture
@@ -16,13 +16,13 @@ default:
         - :title: bedside_cabinets
           :url: /t/furniture/bedside-cabinets
 
-    - title: lighting
+    - title: Łazienka
       url: /t/lights
       subtitle: Categories
       url: /t/lights
       
       items:
-        - :title: chandeliers
+        - :title: Biuro
           :url: /t/lights/chandeliers
         - :title: table_lamp
           :url: /t/lights/table-lamp
@@ -35,8 +35,29 @@ default:
         - :title: bulbs
           :url: /t/lights/bulbs
 
-    - title: accessories
+    - title: Gastronomia
       url: /t/accessories
 
-    - title: implementation
-      url: http://luxurydesign.pl
+    - title: Ogród
+      url: /t/accessories
+    
+    - title: Dom
+      url: /t/accessories
+    
+    - title: Hale
+      url: /t/accessories
+    
+    - title: Auto
+      url: /t/accessories
+    
+    - title: Dezynfekcja
+      url: /t/accessories
+
+    - title: Ochrona
+      url: /t/accessories
+
+    - title: BHP
+      url: /t/accessories
+
+
+

@@ -1,11 +1,12 @@
+- tab_name = :details
 .container.is-fluid.has-mb-60
-  h1.title.is-1.has-text-centered.has-mt-24 = @product.name
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-4-touch = @product.name
   .columns
     .column.is-2
-      = sidebar({'type': @product.name, \
-          items: { images: "#{admin_product_images_path(params[:id])}" }} \
-        )
-    .column.is-8.content.is-mb-60
+      = sidebar(single_product_sidebar_items(@product))
+    .column.is-8.content.has-mb-60
+      = product_tabs(tab_name)
+      
       = render 'admin/products/existing_product_form'
     .column
       .box.has-mt-24.sticky.hide-mob

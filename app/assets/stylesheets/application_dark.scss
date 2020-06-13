@@ -1,0 +1,115 @@
+@import "./colors_dark";
+
+@import "bulma/bulma";
+
+// @import "@fortawewebsome/fontawesome-free";
+@import "navbar";
+@import "sidebar";
+@import "tables";
+@import "modals";
+// @import "./grid";
+// @import "./namespaces";
+// @import "./steps";
+@import "./font";
+@import "./typography";
+@import "./utils";
+// @import "./tooltips";
+@import "./basics";
+// @import "./responses";
+// @import "./units";
+// @import "./forms";
+// @import "./atlas";
+// @import "./tables";
+
+.hide {
+  display: none;
+}
+
+.is-flex {
+  display: flex;
+}
+
+.is-flex-centered {
+  justify-content: center;
+  align-items: center;
+}
+
+.is-flex-col {
+  flex-direction: column;
+}
+
+.is-full-height {
+  height: 100vh;
+}
+
+.notification {
+  border-radius: 0px;
+}
+
+.sticky {
+  position: sticky;
+  top: 30px;
+}
+
+.hide-mob {
+  @include mobile {
+    display: none;
+  }
+}
+
+.file-label input {
+  background-color: white;
+  border-color: #dbdbdb;
+  border-width: 1px;
+  color: #363636;
+  cursor: pointer;
+  justify-content: center;
+  padding-bottom: calc(0.5em - 1px);
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: calc(0.5em - 1px);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.notification {
+  border-top: 1px solid beige;
+}
+
+ul.search-results {
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-left: 0px !important;
+
+  li {
+    padding: 1rem;
+    list-style: none;
+  }
+
+  li:hover {
+    background-color: map-get($management, 'sp-green-30');
+  }
+}
+
+.unstyled-list {
+  list-style-type:none;
+}
+
+.old-order-box {
+  background-color: map-get($management, 'tangerine-40');
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.old-order-box:hover {
+  background-color: map-get($management, 'tangerine-50');
+}
+
+.new-search-results{
+  border: 1px solid black;
+  overflow: auto;
+  max-height: 400px;
+  list-style: none !important;
+  margin-left: none !important;
+  margin-top: none !important; 
+}

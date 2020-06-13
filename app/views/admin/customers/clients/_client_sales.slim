@@ -1,0 +1,21 @@
+.columns.has-mt-18.is-fullwidth
+  .box.is-fullwidth
+    h1.title.is-1.has-text-centered.has-mt-24 Lifetime Sales
+    .columns
+      .column
+        .box.has-bg-blue-10
+          .h2.subtitle.is-3 Lifetime Sales
+          = user.display_lifetime_value.to_html
+        .box.has-bg-blue-10
+          .h2.subtitle.is-3 Order Count
+          = user.order_count
+        .box.has-bg-blue-10
+          .h2.subtitle.is-3 Average Order Value
+          = user.display_average_order_value.to_html
+      .column
+        a.box.has-bg-blue-10
+          .h2.subtitle.is-3 Store Credit
+          = Spree::Money.new(user.total_available_store_credit)
+        .box.has-bg-blue-10
+          .h2.subtitle.is-3 Created On
+          = pretty_time(user.created_at)

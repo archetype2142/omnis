@@ -15,7 +15,10 @@
             </button>
           </div>
           <figure class="logo flex-grow-0 flex-xl-grow-1 order-xl-0 header-spree-fluid-logo m-0">
-            <%= image_tag 'storefront_logo' %>
+            
+            <%= link_to root_path do %>
+              <%= image_tag 'storefront_logo' %>
+            <% end %>
           </figure>
           <div id="top-nav-bar" class="flex-grow-1 header-spree-fluid-secondary-navigation">
             <%= render partial: 'spree/shared/nav_bar' %>
@@ -24,7 +27,7 @@
         </div>
       </div>
     </header>
-    <div id="main-nav-bar" class="flex-grow-0 d-none d-xl-block h-100 header-spree-fluid-primary-navigation">
+    <div id="main-nav-bar" class="mb-3 flex-grow-0 d-none d-xl-block h-100 header-spree-fluid-primary-navigation">
       <%= render partial: 'spree/shared/main_nav_bar' %>
     </div>
   </div>

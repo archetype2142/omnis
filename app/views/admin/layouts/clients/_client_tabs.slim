@@ -1,0 +1,9 @@
+.tabs.is-boxed.has-mb-12
+  ul
+    li id="client_info"
+      = link_to "Details", admin_customers_client_path(user)
+    li id="addresses" 
+      = link_to "Addresses", admin_customers_address_path(user)
+    li id="prices"
+javascript:
+  document.querySelector("##{locals[:tab_name]}").classList.toggle("is-active");

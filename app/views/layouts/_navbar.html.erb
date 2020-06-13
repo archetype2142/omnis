@@ -28,9 +28,7 @@
       </div>
 
       <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Products
-        </a>
+        <%= link_to "Products", admin_products_path, class: "navbar-link" %> 
 
         <div class="navbar-dropdown">
           <%= link_to "All products", admin_products_path, class: "dropdown-item" %> 

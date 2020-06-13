@@ -1,0 +1,13 @@
+.tabs.is-boxed.has-mb-12
+  ul
+    li id="details"
+      = link_to "Details", admin_product_path(@product)
+    li id="images" 
+      = link_to "Images", admin_product_images_path(@product.id)
+    li id="prices"
+      = link_to "Prices", admin_product_prices_path(@product.id)
+    li id="stocks"
+      a href="#" Stocks
+
+javascript:
+  document.querySelector("##{locals[:tab_name]}").classList.toggle("is-active");

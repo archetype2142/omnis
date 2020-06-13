@@ -1,0 +1,35 @@
+.table__wrapper
+  table.table.is-striped.is-narrow.is-hoverable.is-fullwidth.has-mt-24
+    thead.has-bg-peach-pop-40
+      tr
+        th
+          abbr title="User" User
+        th
+          abbr title="Currency" Currency
+        th
+          abbr title="Amount" Amount
+        th
+    tbody
+      - @prices.each do |price| 
+        tr 
+          - if price.user
+            th
+              = price.user.email
+          - else 
+            th 
+              |-
+          th 
+            = price.currency
+          th
+            = price.display_amount.to_html
+          th.is-flex style="justify-content: space-around"
+            a id="edit"
+              span.icon
+                i.far.fa-edit
+            a id="delete-button"
+              span.icon
+                i.fas.fa-trash
+
+
+/= paginate @products 
+/= @prices.inspect

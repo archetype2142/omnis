@@ -1,8 +1,10 @@
 module Admin
   class ImagesController < ::ApplicationController  
-    helper_method :scope
+    helper_method :scope, :sidebar_items
 
-    def index; end
+    def index
+      @product = scope
+    end
 
     def destroy
       Spree::Image.find(params[:id]).destroy!
@@ -20,6 +22,8 @@ module Admin
       end
     end
 
+    protected 
+    
     def scope
       if params[:product_id]
         Spree::Product.friendly.find(params[:product_id])
@@ -27,6 +31,8 @@ module Admin
         Spree::Variant.find(params[:variant_id])
       end
     end
+
+    private
 
     def image_params
       {

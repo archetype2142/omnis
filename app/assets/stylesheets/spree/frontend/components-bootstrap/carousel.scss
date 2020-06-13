@@ -58,14 +58,14 @@
         left: 7px;
         @include arrow;
         @media (min-width: map-get($grid-breakpoints, "xl") + 100px) {
-          left: -30px;
+          // left: -30px;
         }
       }
       &--next {
         right: 7px;
         @include arrow;
         @media (min-width: map-get($grid-breakpoints, "xl") + 100px) {
-          right: -30px;
+          // right: -30px;
         }
       }
     }

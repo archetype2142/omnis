@@ -1,6 +1,7 @@
 module Spree
   class PriceBook < Spree::Base
     belongs_to :user
+    belongs_to :company
     
     has_many :prices
     has_many :variants, through: :prices

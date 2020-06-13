@@ -1,0 +1,25 @@
+= form_with model: user, url: admin_customers_client_path do |f| 
+  .is-pulled-right.has-mb-12
+    
+  .columns.box.is-fullwidth
+    .column
+      .field 
+        .label Client type
+        .control
+          .select
+            = f.select(:client_type, Spree::User.client_types.map { |h| [h[0], h[1]] }, {selected: user.client_type_before_type_cast})
+    .column
+      .field 
+        .label Email
+        .control
+          = f.text_field :email, class: 'input', type: "email"
+  
+  .columns.box.is-fullwidth
+    .column
+      .field
+        .control
+          = f.submit "Update!", class: 'button is-primary'
+    .column
+      .field
+        .control
+          = link_to "Delete", admin_customers_client_path,  method: :delete, class: 'button is-danger'

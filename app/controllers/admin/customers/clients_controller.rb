@@ -1,11 +1,36 @@
 module Admin
   class Customers::ClientsController < Customers::ApplicationController
-    helper_method :all_users
-    helper_method :user 
-
-    def create
-      puts params
+    def index
+      @q = Spree::User.ransack(params[:q])
       
+      @users = @q
+        .result
+        .page(params[:page])
+        .per(params[:per_page])
+
+
+      respond_to do |format|
+        format.html
+        format.json { render json: @users }
+      end
+    end
+    
+    def show; end
+
+    def update
+      notice = {}
+       ActiveRecord::Base.transaction do
+        if user.update(user_params)
+          notice = { success: "updated!" } 
+        else
+          notice = { alert: user.errors }
+        end
+      end
+
+      redirect_to admin_customers_client_path(user), flash: notice
+    end
+
+    def create      
       usr = Spree::User.new(
         email: params[:user]['address'],
         password: 'default'
@@ -28,12 +53,21 @@ module Admin
       redirect_to redr, flash: notice 
     end
     
-    def index; end
-    
-    def show; end
+    def destroy
+      Spree::User.find(params[:id]).destroy!
 
-    protected 
+      redirect_to admin_customers_clients_path
+    end
+
+    private
     
+    def user_params
+      {
+        client_type: params['user']['client_type'].to_i,
+        email: params['user']['email']
+      }
+    end
+
     def address_params
       {
         firstname: params['client']['firstname'],
@@ -46,16 +80,6 @@ module Admin
         state: Spree::State.find_by(name: params['client']['state_id']),
         zipcode: params['client']['zipcode']
       }
-    end
-
-    def user
-      user ||= Spree::User.find(params[:id])
-    end
-
-    def all_users
-      all_users = Spree::User
-      .order(created_at: :desc)
-      .preload(:spree_roles).preload(:addresses)
     end
   end
 end

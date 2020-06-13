@@ -1,3 +1,3 @@
 Spree::User.class_eval do
-  belongs_to :special_user  
+  CLIENT_TYPES = %w[b2c b2b subsidiary_owner super_admin]
 end

@@ -1,18 +1,12 @@
-<div class="border-top footer-spree-copyright">
+<div class="mt-5 border-top footer-spree-copyright">
   <div class="container">
     <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center py-3 footer-spree-copyright-content">
-      <div>Designed and developed by</div>
-      <div class="mb-1 mb-lg-0">
-        <%= link_to 'https://daiwick.co/', target: :blank, 'aria-label': 'Go to DaiWick', rel: :follow do %>
-          <%= image_tag 'daiwick_logo.png', class: 'footer-spree-copyright-logo-spark mx-2', alt: 'Daiwick', title: 'DaiWick software' %>
-        <% end %>
-      </div>
-      <div class="d-none d-lg-inline-block mr-2">|</div>
-      <div>
+      <div>©2020 srodkiczystosci.pl Wszelkie prawa zastrzeżone</div>
+      <!-- <div>
         © <%= Time.current.year %>
         <%= link_to current_store.name, "https://#{current_store.url}" %>.
         <%= Spree.t(:all_rights_reserved) %>.
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

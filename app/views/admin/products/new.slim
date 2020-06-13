@@ -1,8 +1,8 @@
 .container.is-fluid.has-mb-60
-  h1.title.is-1.has-text-centered.has-mt-24 New product
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-3-touch New product
   .columns
     .column.is-2
-      = sidebar({'type': "All Products"})
+      = sidebar(product_sidebar_items)
     .column.is-8.content.is-mb-60
       = render 'admin/products/new_product_form'
     .column

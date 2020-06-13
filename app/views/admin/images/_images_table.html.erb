@@ -12,7 +12,7 @@
       <tr>
         <th><%= image.id %></th>
         <th><%= image.attachment_file_name %> </th>
-        <th><%= image_tag image.url(:small) %></th>
+        <th><%= image_tag image.url(:small), class: "image is-64x64" %></th>
         <th><%= link_to "Delete", admin_product_image_path(scope, image), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger' %>
       </tr> 
     <% end %>

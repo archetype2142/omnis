@@ -1,12 +1,23 @@
 <% url = spree.product_path(product, taxon_id: @taxon&.id) %>
 <%= link_to url, class: 'h-100 d-flex flex-column justify-content-between' do %>
   <% cache [common_product_cache_keys, product] do %>
-    <%= plp_and_carousel_image(product, image_class) %>
-    <div>
-      <div class="product-component-name" title="<%= product.name %>">
+    <div class="product-image-car">
+      <%= plp_and_carousel_image(product, image_class) %>
+    </div>
+    <div class="text-centered">
+      <div class="text-centered product-component-name" title="<%= product.name %>">
         <%= product.name %>
       </div>
-      <div class="product-component-price"><%= display_price(product) %></div>
+      <div class="product-component-price">
+        <% sale = product.master.sale_price ? true : false %>
+        <% if sale %>
+          <del class="orig-price text-danger"><%= display_price(product)%> </del> 
+          <span class="sale-price"><%= sale_price(product)%></span>
+          <span class="sale-percent">-<%= sale_percent(product) %>%</span>
+        <% else %>
+          <span class="sale-price" ><%= display_price(product)%></span>
+        <% end %>
+      </div>
     </div>
   <% end %>
 <% end %>

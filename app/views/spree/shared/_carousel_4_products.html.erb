@@ -7,6 +7,7 @@
             <div class="row carousel-items-container">
               <% sliced_items.each_with_index do |item, idx| %>
                 <div class="col-6">
+
                   <%= render 'spree/shared/product', product: item, image_class: 'w-100' %>
                 </div>
               <% end %>

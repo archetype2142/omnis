@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   # This line mounts Spree's routes at the root of your application.
   # This means, any requests to URLs such as /products, will go to
@@ -9,7 +11,14 @@ Rails.application.routes.draw do
   # the default of "spree".
   mount Spree::Core::Engine, at: "/"
   
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == 'test' && password == 'test'
+  end
+  mount Sidekiq::Web => '/sidekiq'
+
   Spree::Core::Engine.add_routes do
+    get "/sale" => "home#sale"
+    
     namespace :api, defaults: { format: 'json' } do 
       namespace :v1 do 
         resources :clients, only: :index
@@ -26,15 +35,20 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "orders#index"
+    post 'upload_products_csv', to: 'products#upload_products_csv'
+    
     resources :products, only: [:index, :show, :new, :create, :update] do
       resources :images, only: [:index, :create, :destroy]
+      resources :prices, only: [:index, :create, :destroy]
     end
     
     resources :orders, only: [:index, :new, :show, :destroy]
 
     namespace :customers do
-      resources :clients, only: [:index, :create, :show]
+      resources :clients, only: [:index, :create, :show, :update, :destroy]
       resources :companies, only: [:index, :create]
+      resources :addresses, only: [:index, :create, :update, :destroy, :show]
+      resources :orders, only: [:index]
     end
   end
 

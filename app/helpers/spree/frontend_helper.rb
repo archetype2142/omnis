@@ -112,7 +112,7 @@ module Spree
         next if msg_type.blank? || excluded_types.include?(msg_type)
 
         flashes << content_tag(:div, class: "notification is-#{class_for(msg_type)}") do
-          content_tag(:button, class: 'danger', data: { dismiss: 'alert', hidden: true }) +
+          content_tag(:button, '', class: "delete") +
             content_tag(:span, text)
         end
       end

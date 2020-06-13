@@ -1,4 +1,27 @@
 module BaseHelper
+  
+  def field_container(model, method, options = {}, &block)
+    css_classes = options[:class].to_a
+    css_classes << 'field'
+    css_classes << 'withError' if error_message_on(model, method).present?
+    content_tag(
+      :div, capture(&block),
+      options.merge(class: css_classes.join(' '), id: "#{model}_#{method}_field")
+    )
+  end
+
+  def error_message_on(object, method, _options = {})
+    object = convert_to_model(object)
+    obj = object.respond_to?(:errors) ? object : instance_variable_get("@#{object}")
+
+    if obj && obj.errors[method].present?
+      errors = safe_join(obj.errors[method], '<br />'.html_safe)
+      content_tag(:span, errors, class: 'formError')
+    else
+      ''
+    end
+  end
+
   def available_countries
     checkout_zone = Spree::Zone.find_by(name: Spree::Config[:checkout_zone])
 
@@ -18,7 +41,42 @@ module BaseHelper
     product_or_variant.
       price_in(current_currency).
       display_price_including_vat_for(current_price_options).
-      to_html
+      to_html 
+  end
+
+  def sale_price(product_or_variant)
+    if product_or_variant.is_a?(Spree::Variant)
+      v = product_or_variant
+    else
+      v = product_or_variant.master
+    end
+
+    price = display_price(product_or_variant)
+
+    price = Spree::Price.new(
+      variant_id: v.id, 
+      amount: v.sale_price, 
+      currency: current_currency
+    ) if v.sale_price?
+
+    price.display_amount.to_html
+  end
+
+  def sale_percent(product_or_variant)
+    if product_or_variant.is_a?(Spree::Variant)
+      v = product_or_variant
+    else
+      v = product_or_variant.master
+    end
+
+    price_orig = v.price_in(current_currency)
+    price_sale ||= Spree::Price.new(
+      variant_id: v.id, 
+      amount: v.sale_price, 
+      currency: current_currency
+    ) if v.sale_price
+    
+    100 - ((price_sale.amount.to_f / price_orig.amount.to_f) * 100).round(2)
   end
 
   def link_to_tracking(shipment, options = {})
