@@ -1,0 +1,22 @@
+.box
+  h1.title Add stock
+  = form_for :stock, url: admin_product_stocks_path do |f|
+    .columns
+      .column
+        .field
+          label.label Quantity
+          .control
+            = f.text_field :quantity, type: "number", class: 'input', value: '1', required: true
+      .column
+        .field
+          label.label Stock Location
+          .control
+            .select
+              = f.select(:stock_location_id,  @stock_locations.all.map{ |t| [t.name, t.id]})
+      .column
+        .field
+          label.label Variant
+          .control
+            .select
+              = f.select(:variant_id, @product.variants_including_master.all.collect { |v| v.options_text.empty? ? ["Master", v.id] : [v.options_text, v.id] })
+    = f.submit "Add", class: "button is-primary"

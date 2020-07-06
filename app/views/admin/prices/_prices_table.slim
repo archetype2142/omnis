@@ -10,26 +10,20 @@
           abbr title="Amount" Amount
         th
     tbody
-      - @prices.each do |price| 
-        tr 
-          - if price.user
-            th
-              = price.user.email
-          - else 
+      - if @prices
+        - @prices.each do |price|
+          tr onclick="window.location='#{edit_admin_product_price_path(product_id: @product, id: price.id)}'"
+            - if price.user
+              th
+                = price.user.email
+            - else 
+              th 
+                |-
             th 
-              |-
-          th 
-            = price.currency
-          th
-            = price.display_amount.to_html
-          th.is-flex style="justify-content: space-around"
-            a id="edit"
-              span.icon
-                i.far.fa-edit
-            a id="delete-button"
-              span.icon
-                i.fas.fa-trash
+              = price.currency
+            th
+              = price.display_amount.to_html
+            th.is-flex style="justify-content: space-around"
+              = link_to 'Destroy', admin_product_price_path(product_id: @product.id, id: price.id), method: :delete,class: "has-text-danger", data: { confirm: "Are you sure?" }
 
-
-/= paginate @products 
-/= @prices.inspect
+/= paginate @prices 

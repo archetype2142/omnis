@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_04_214642) do
+ActiveRecord::Schema.define(version: 2020_06_27_101158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -484,6 +484,7 @@ ActiveRecord::Schema.define(version: 2020_06_04_214642) do
     t.boolean "default", default: false, null: false
     t.datetime "active_from"
     t.datetime "active_to"
+    t.integer "priority"
     t.index ["user_id"], name: "index_spree_price_books_on_user_id"
   end
 

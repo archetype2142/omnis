@@ -1,25 +1,55 @@
 @import "./colors";
 
 @import "bulma/bulma";
-
-// @import "@fortawewebsome/fontawesome-free";
 @import "navbar";
 @import "sidebar";
 @import "tables";
 @import "modals";
-// @import "./grid";
-// @import "./namespaces";
-// @import "./steps";
+
 @import "./font";
 @import "./typography";
 @import "./utils";
-// @import "./tooltips";
 @import "./basics";
-// @import "./responses";
-// @import "./units";
-// @import "./forms";
-// @import "./atlas";
-// @import "./tables";
+
+@import "bulma-block-list/src/block-list";
+.sortable-ghost {
+  background: map-get($management, "tangerine-pop-30") !important;
+}
+
+.has-shadow {
+  box-shadow: 0 1px 16px rgba(51, 51, 51, 0.11);
+}
+
+.is-flex-align-center {
+  align-items: center;
+}
+
+.responsive_icon {
+  font-size: 4rem;
+  @include touch {
+    font-size: 1.5rem;
+  }
+}
+
+.is-mob-centered {
+  @include touch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.sortable-chosen {
+  background: map-get($management, "tangerine-pop-60") !important;
+}
+
+.box.is-hoverable:hover {
+  background-color: map-get($management, "tangerine-pop-30");
+}
+
+li.is-hoverable:hover {
+  background-color: map-get($management, "tangerine-pop-30");
+}
 
 #delete-button {
   span {
@@ -76,8 +106,8 @@
 }
 
 #search_box {
-  overflow-y: hidden;
-  max-height: 500px; /* approximate max height */
+  overflow-y: initial;
+  max-height: 550px; /* approximate max height */
 
   transition-property: all;
   transition-duration: .5s;
@@ -86,6 +116,7 @@
 }
 
 #search_box.closed {
+  overflow-y: hidden;
   max-height: 0;
 }
 

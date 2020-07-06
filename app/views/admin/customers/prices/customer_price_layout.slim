@@ -1,0 +1,20 @@
+- tab_name = :prices
+div.container.is-fluid
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-3-touch = fullname(user)
+  .columns
+    .column.is-2
+      = sidebar(client_sidebar_items)
+    .column.is-8.content style="height: 150vh;"
+      = client_tabs(tab_name)
+      .level
+        .level-left
+        .level-right
+          /= link_to "New Price", new_admin_product_price_path(@product), class: "button is-primary"
+      = yield
+    .column
+      .box.has-mt-5.sticky.hide-mob
+        p Search/Scan/Filter/Notes
+        br
+        /= render 'admin/customers/clients/new_user_modal' 
+        button.button.is-primary id="open-modal" New Client
+

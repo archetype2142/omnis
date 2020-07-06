@@ -1,0 +1,34 @@
+.box style="margin-bottom: 0px; padding-bottom: 0px;"
+  .columns.is-mobile style="margin-bottom: 0px;"
+    .column style="display: flex; justify-content: flex-start; align-items: center; overflow: hidden"
+      button.button.is-info.has-mb-5 id="hide_show_button"
+        span.icon id="icon"
+          i.fas.fa-arrow-down
+        span Filter
+    .column.is-flex.is-flex-centered
+      = form_with url: admin_product_variants_path(@product), method: :get do |f|
+        .field
+          label.label Per page
+          .control
+            .select
+              = select_tag "per_page", options_for_select([10, 15, 20, 30], params[:per_page]), onchange: 'this.form.submit();'
+
+  = search_form_for @q, url: admin_product_variants_path(@product), id: "search_box", class: "closed" do |f|
+    .columns.is-mobile.is-multiline
+      .column.is-half
+        .field
+          = f.label :name_cont, class: "label"
+          .control
+            = f.search_field :name_cont, class: "input"
+      .column.is-half
+        .field
+          = f.label :sku_cont, class: "label"
+          .control
+            = f.search_field :sku_cont, class: "input"
+    .columns
+      .column
+        .field
+          .control
+            = f.submit "Filter", class: "button is-primary"
+
+= javascript_pack_tag "toggle_search", 'data-turbolinks-track': 'reload' 

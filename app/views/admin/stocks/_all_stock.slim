@@ -1,0 +1,64 @@
+div style="margin-top: 20px"
+  .columns.is-multiline
+    - if @variants
+      - @variants.each do |variant|
+        - if variant.stock_items.present?
+          .column.is-one-third
+            .box.is-hoverable onclick="window.location='#{variant.is_master? ? admin_product_path(@product) : admin_product_variant_path(@product, variant)}'"
+              - if variant.is_master?
+                h1.title.is-size-4.is-size-5-touch.has-text-centered Master
+              .columns.is-multiline
+                .column.is-half
+                  h6.is-size-6 style="margin: 0px !important"  
+                    | Name:
+                    h2.is-size-4.is-size-5-touch style="margin-top: 0px !important"  
+                      = variant.name
+                  - if variant.images.present? 
+                    = image_tag main_app.url_for(variant.images.first.url(:small))
+                .column.is-half
+                  h6.is-size-6.is-size-5-touch style="margin: 0px !important"  
+                    h2.is-size-5.is-size-5-touch style="margin-top: 0px !important"  
+                      = variant.sku_and_options_text
+                  = form_with model: variant, url: admin_product_variants_stock_path(@product, id: variant), method: :put, class: "toggle_variant_track_inventory" do |f|
+                      label.checkbox 
+                        = f.check_box("track_inventory", { class: 'track_inventory_checkbox' })
+                        span Track Inventory 
+                .column
+                  - if variant.stock_items.map { |s| s.count_on_hand == 0 }.include?(false)
+                    h2.has-text-centered.is-size-4.is-size-5-touch Stock Information
+                    - variant.stock_items.each do |item|
+                      - next unless @stock_locations.include?(item.stock_location)
+                      - next if item.count_on_hand < 1
+                      .columns.is-multiline.has-border-top
+                        .column.is-half
+                          h6.is-size-6 style="margin: 0px !important"  
+                            | Location:
+                            h2.is-size-4.is-size-5-touch style="margin-top: 0px !important"  
+                              = item.stock_location.name
+                        .column.is-half
+                          h6.is-size-6 style="margin: 0px !important"  
+                            | Count:
+                            h2.is-size-4.is-size-5-touch style="margin-top: 0px !important"  
+                              = item.count_on_hand
+                        .column.is-flex.is-flex-centered
+                          = form_with model: item, url: admin_product_stock_path(@product, item), method: :put, class: 'toggle_stock_item_backorderable' do |f|
+                            label.checkbox.is-flex.is-flex-centered
+                              = f.check_box("backorderable", { class: 'stock_item_backorderable' })
+                              b &nbsp; Backorderable
+                      .columns.is-flex.is-flex-centered
+                        = link_to 'delete all stock', admin_product_stock_path(@product, item), method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger"
+
+javascript:
+  var checkbox = document.querySelector(".track_inventory_checkbox")
+  var backorderables = document.getElementsByClassName("stock_item_backorderable");
+  console.log(backorderables);
+
+  for (let item of backorderables) {
+    item.addEventListener('change', (event) => {
+      event.target.parentNode.parentNode.submit();
+    });
+  }
+
+  checkbox.addEventListener('change', (event) => {
+    event.target.parentNode.parentNode.submit();
+  })

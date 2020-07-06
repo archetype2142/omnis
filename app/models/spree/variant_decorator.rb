@@ -1,11 +1,10 @@
 Spree::Variant.class_eval do
 
-  ## Associationsre
+  ## Associations
 
   has_many :price_books, -> { active.order('spree_prices.amount ASC, spree_price_books.priority DESC') }, through: :prices
 
   ## Class Methods
-
   ## Instance Methods
 
   # def display_list_price(currency = Spree::Config[:currency], store_id = Spree::Store.default.id, role_ids = nil)
@@ -30,4 +29,3 @@ Spree::Variant.class_eval do
   #   end
   # end
 end
-

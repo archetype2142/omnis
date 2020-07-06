@@ -1,0 +1,84 @@
+- tab_name = :variants
+.container.is-fluid.has-mb-60
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-3-touch = @variant.name
+  .columns
+    .column.is-2
+      = sidebar(product_sidebar_items)
+    .column.is-8.content.has-mb-60
+      = product_tabs(tab_name)
+      = form_with model: @variant, url: admin_product_variant_path(@product, @variant), html: {multipart: true }, method: :put do |f|
+        .box
+          .row
+            - if @product.option_types.any?
+              h2.is-size-4.is-size-4-touch.has-text-centered Option Types
+              hr
+              .columns.is-mobile.is-multiline
+                - @product.option_types.each do |o|
+                  / = @variant.option_values.inspect
+                  = f.fields_for 'option_values[]', o do |ov|
+                    .column.is-one-third
+                      .field
+                        .label = o.name
+                        .control
+                          .select
+                            = ov.select(:option_values, o.option_values.collect { |v| [v.name, v.id] }, selected: @variant.option_values&.find_by(option_type_id: o.id)&.id, include_blank: true )
+            h2.is-size-4.is-size-4-touch.has-text-centered Variant Properties
+            hr
+            .columns.is-mobile.is-multiline
+              .column
+                .field 
+                  .label SKU
+                  .control
+                    = f.text_field :sku, class: 'input'
+              .column
+                .field 
+                  .label Price
+                  .control
+                    = f.text_field :price, class: 'input', value: @product.price
+              .column
+                .field 
+                  .label Cost Price
+                  .control
+                    = f.text_field :cost_price, class: 'input'
+              .column
+                .field 
+                  .label Tax Category
+                  .control
+                    .select
+                      = f.select(:tax_category_id, Spree::TaxCategory.all.map{ |t| [t.name, t.id]})
+            .columns.is-mobile
+              .column
+                .field
+                  label.label Weight
+                  .control
+                    = f.text_field :weight, class: 'input'
+              .column
+                .field
+                  label.label Height
+                  .control
+                    = f.text_field :height, class: 'input'
+              .column
+                .field
+                  label.label Width
+                  .control
+                    = f.text_field :width, class: 'input'
+              .column
+                .field
+                  label.label Depth
+                  .control
+                    = f.text_field :depth, class: 'input'
+            .columns
+              .column
+                .field 
+                  .control
+                    = f.submit "Update", class: "button is-info"
+
+
+    .column
+      .sticky
+        .box.hide-mob
+          p Add a new product
+          br
+          = link_to "New product", new_admin_product_path, class: "button is-primary"
+          
+

@@ -1,0 +1,20 @@
+.box
+  .columns.is-mobile
+    .column.is-one-fifth.has-bg-red-10.is-bold Position
+    .column.is-one-third.has-bg-red-20.is-bold Name
+    .column.has-bg-red-30.is-bold Presentation
+
+= form_with url: admin_option_types_update_position_path do |f|
+  ul.block-list id="option_types"
+    - @option_types.all.order(:position).each_with_index do |option, index|
+      li.box.is-primary id="option[#{option.id}]" onClick="window.location='#{admin_option_type_path(option)}'"
+        input.order-hidden type="hidden" id="option_hide[#{option.id}]" name="order[#{option.id}]"
+        .columns.is-mobile
+          .column.is-one-fifth.is-flex.is-flex-centered
+            i.fas.fa-arrows-alt
+          .column.is-one-third = option.name
+          .column.is-one-third = option.presentation
+          .column style="text-align:right;"
+            = link_to '<i class="fas fa-times"></i>'.html_safe, admin_option_type_path(option), method: :delete, class: "button is-danger", data: { confirm: "Are you sure?" }
+
+= javascript_pack_tag "sort_option_types", 'data-turbolinks-track': 'reload'

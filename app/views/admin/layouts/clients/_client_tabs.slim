@@ -5,5 +5,15 @@
     li id="addresses" 
       = link_to "Addresses", admin_customers_address_path(user)
     li id="prices"
+      = link_to "Prices", admin_customer_prices_path(user)
+    - if user.company_owner?
+      li id="companies"
+        = link_to "Company", admin_customer_companies_path(user)
+    - if (user.company_owner? || user.subsidiary_owner?)
+      li id="subsidiaries"
+        = link_to "Subsidiary", admin_customer_subsidiaries_path(user)
+    - if user.company_owner? || user.store_owner? 
+      li id="stores"
+        = link_to "Store", admin_customer_stores_path(user)
 javascript:
   document.querySelector("##{locals[:tab_name]}").classList.toggle("is-active");

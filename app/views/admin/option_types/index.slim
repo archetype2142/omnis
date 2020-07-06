@@ -1,0 +1,18 @@
+.container.is-fluid.has-mb-60
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-3-touch Option Types
+  .columns
+    .column.is-2
+      = sidebar(options_sidebar_items)
+    .column.is-8.content.has-mb-60
+      .levels.is-mobile.has-mb-4
+        .level-right
+          .level-item
+            = link_to "New Option", new_admin_option_type_path, class: "button is-primary"
+      = render "admin/option_types/all_option_types"
+    .column
+      .sticky
+        .box.hide-mob
+          p Add a new product
+          br
+          = link_to "New product", new_admin_product_path, class: "button is-primary"
+        

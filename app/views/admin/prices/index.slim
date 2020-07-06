@@ -6,6 +6,10 @@
       = sidebar(single_product_sidebar_items(@product))
     .column.is-8.content.has-mb-60
       = product_tabs(tab_name)
+      .level
+        .level-left
+        .level-right
+          = link_to "New Price", new_admin_product_price_path(@product), class: "button is-primary"
       = prices_table
     .column
       .sticky

@@ -1,5 +1,23 @@
 module BaseHelper
-  
+  def sale_today
+    total = Spree::Order.created_between(
+      DateTime.now.beginning_of_day, 
+      DateTime.now.end_of_day
+    ).map do |o|
+      next if o.currency != current_currency
+      o.total
+    end.inject(0, :+)
+
+    Spree::Money.new(total, currency: current_currency)
+  end
+
+  def orders_today
+    Spree::Order.created_between(
+      DateTime.now.beginning_of_day, 
+      DateTime.now.end_of_day
+    ).count
+  end
+
   def field_container(model, method, options = {}, &block)
     css_classes = options[:class].to_a
     css_classes << 'field'
@@ -218,5 +236,11 @@ module BaseHelper
     if method_name.to_s.match(/_image$/) && style = method_name.to_s.sub(/_image$/, '')
       style if style.in? Spree::Image.styles.with_indifferent_access
     end
+  end
+
+  def order_time(time)
+    return '' if time.blank?
+
+    [I18n.l(time.to_date), time.strftime('%l:%M %p').strip].join(' ')
   end
 end

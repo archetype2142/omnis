@@ -16,6 +16,17 @@ module NavigationHelper
     }
   end
 
+  def options_sidebar_items
+    {
+      'type': 'Option Settings',
+      items: {
+        'All Products': admin_products_path,
+        'New Option': new_admin_option_type_path,
+        'All Options': admin_option_types_path
+      }
+    }
+  end
+
   def client_sidebar_items
     {
       'type': 'Customer Settings',
@@ -37,4 +48,13 @@ module NavigationHelper
     }
   end
 
+  def order_sidebar_items
+    {
+      'type': 'Orders', 
+      items: { 
+        'New Order': new_admin_order_path, 
+        'All Orders': admin_orders_path 
+      } 
+    }
+  end
 end

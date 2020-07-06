@@ -1,6 +1,6 @@
-.box style="margin-bottom: 0px; padding-bottom: 0px"
-  .columns.is-mobile style="margin-bottom: 0px"
-    .column style="display: flex; justify-content: flex-start; align-items: center"
+.box style="margin-bottom: 0px; padding-bottom: 0px;"
+  .columns.is-mobile style="margin-bottom: 0px;"
+    .column style="display: flex; justify-content: flex-start; align-items: center; overflow: hidden"
       button.button.is-info.has-mb-5 id="hide_show_button"
         span.icon id="icon"
           i.fas.fa-arrow-down
@@ -15,17 +15,21 @@
 
 
   = search_form_for @q, url: admin_products_path, id: "search_box", class: "closed" do |f|
+    .columns.is-mobile.is-multiline
+      .column.is-half
+        .field
+          = f.label :name_cont, class: "label"
+          .control
+            = f.search_field :name_cont, class: "input"
+      .column.is-half
+        .field
+          = f.label :sku_cont, class: "label"
+          .control
+            = f.search_field :variants_including_master_sku_cont, class: "input"
     .columns
-      .field.column
-        = f.label :name_cont, class: "label"
-        .control
-          = f.search_field :name_cont, class: "input"
-      .field.column
-        = f.label :sku_cont, class: "label"
-        .control
-          = f.search_field :variants_including_master_sku_cont, class: "input"
-    .field.has-mb-18
-      .control
-        = f.submit "Filter", class: "button is-primary"
+      .column
+        .field
+          .control
+            = f.submit "Filter", class: "button is-primary"
 
 = javascript_pack_tag "toggle_search", 'data-turbolinks-track': 'reload' 

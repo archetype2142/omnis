@@ -34,22 +34,37 @@ Rails.application.routes.draw do
 
 
   namespace :admin do
-    root to: "orders#index"
+    root to: "homepage#index"
     post 'upload_products_csv', to: 'products#upload_products_csv'
-    
-    resources :products, only: [:index, :show, :new, :create, :update] do
-      resources :images, only: [:index, :create, :destroy]
-      resources :prices, only: [:index, :create, :destroy]
-    end
     
     resources :orders, only: [:index, :new, :show, :destroy]
 
     namespace :customers do
       resources :clients, only: [:index, :create, :show, :update, :destroy]
-      resources :companies, only: [:index, :create]
+      # resources :companies, only: [:index, :create]
       resources :addresses, only: [:index, :create, :update, :destroy, :show]
-      resources :orders, only: [:index]
+      resources :orders, only: [:index, :update]
     end
+
+    resources :customers do
+      resources :companies, only: [:index, :create], controller: "customers/companies"
+      resources :subsidiaries, only: [:index, :create], controller: "customers/subsidiaries"
+      resources :stores, only: [:index, :create], controller: "customers/stores"
+      resources :prices, controller: "customers/prices", only: [:index, :new, :edit, :update, :destroy]
+    end
+
+    resources :products, only: [:index, :show, :new, :create, :update] do
+      resources :images, only: [:index, :create, :destroy, :show, :update]
+      resources :prices, only: [:index, :create, :edit, :new, :destroy, :update]
+      resources :stocks, only: [:index, :create, :edit, :new, :destroy, :update]
+      resources :variants, only: [:index, :create, :show, :new, :destroy, :update]
+      resources :variants_stock, only: [:update]
+    end
+
+    resources :option_types, only: [:index, :update, :show, :destroy, :new, :create] do 
+      resources :option_values, only: [:create, :destroy, :update]
+    end
+    match '/option_types/update_position', to: 'option_types#update_option_position', via: :post
   end
 
   spree_path = Rails.application.routes.url_helpers.try(:spree_path, trailing_slash: true) || '/'

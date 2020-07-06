@@ -2,13 +2,10 @@
   <h1 class="title is-1 has-text-centered has-mt-24"> Orders Section </h1>
   <div class="columns">
     <div class="column is-2">
-      <%= sidebar({'type': 'Orders', \
-        items: { \
-          'New Order': "#{new_admin_order_path}", \
-          'All Orders': "#{admin_orders_path}" \
-        } } )%>
+      <%= sidebar(order_sidebar_items)%>
     </div>
     <div class="column is-8 content" style="height: 150vh;">
+      <%= all_orders %>
     </div>
     <div class="column">
       <div class="sticky">

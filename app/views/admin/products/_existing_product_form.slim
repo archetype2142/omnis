@@ -1,12 +1,12 @@
 = form_with model: @product, url: admin_product_path do |f| 
-  .columns.box
+  .columns.box.is-mobile
     .column
-      .field 
+      .field
         .label Name
         .control
           = f.text_field :name, class: 'input'
     .column
-      .field 
+      .field
         .label SKU
         .control
           = f.text_field :sku, class: 'input'
@@ -17,7 +17,7 @@
         .control
           = f.text_area :description, class: 'textarea', rows: "13"
     .column
-      .columns
+      .columns.is-mobile
         .column.is-half
           .label Master Price
           .field.has-addons
@@ -34,9 +34,9 @@
             .control
               a.button.is-static
                 = @product.currency
-      .columns
+      .columns.is-mobile
         .column
-          .columns
+          .columns.is-mobile
             .column
               .label Sale Price
               .field.has-addons
@@ -51,25 +51,54 @@
             .control
               .select
                 = f.select(:currency, currency_codes(which: ['PLN', 'USD']))
-      .columns
+      .columns.is-mobile
         .column
           .field
             label.label Tax Category
             .control
             .select
-              = f.select(:tax_category_id, Spree::TaxCategory.all.map{ |t| [t.name, t.id]})             
+              = f.select(:tax_category_id, Spree::TaxCategory.all.map{ |t| [t.name, t.id]})
         .column
           .field
             label.label Shipping Category
             .control
               .select
                 = f.select(:shipping_category_id, Spree::ShippingCategory.all.map{ |t| [t.name, t.id]})
+      .columns.is-mobile
+        .column
+          .field
+            label.label Weight
+            .control
+              = f.text_field :weight, class: 'input'
+        .column
+          .field
+            label.label Height
+            .control
+              = f.text_field :height, class: 'input'
+      .columns.is-mobile
+        .column
+          .field
+            label.label Width
+            .control
+              = f.text_field :width, class: 'input'
+        .column
+          .field
+            label.label Depth
+            .control
+              = f.text_field :depth, class: 'input'
       .column
         .field
           .label Slug
           .control
               = f.text_field :slug, class: 'input'
-  .columns.box
+  .columns.box.has-mt-4.is-mobile
+    .column
+      .field
+        label.label Option Types
+        .control
+          = f.select :option_type_ids, Spree::OptionType.all.map{ |ot| [ot.name, ot.id]}, {}, { multiple: true }
+
+  .columns.box.has-mt-4.is-mobile
     .column
       .field
         .control
@@ -79,3 +108,4 @@
         .control
           = f.submit "Delete", class: 'button is-danger'
 
+= javascript_pack_tag "choices_option_types", 'data-turbolinks-track': 'reload' 

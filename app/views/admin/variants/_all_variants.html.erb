@@ -1,0 +1,35 @@
+<div class="table__wrapper">
+  <table class="table is-striped is-narrow is-hoverable is-fullwidth has-mt-24">
+    <thead class="has-bg-peach-pop-40">
+      <tr>
+        <th><abbr title="SKU">SKU</abbr></th>
+        <th><abbr title="Photo">Photo</abbr></th>
+        <th><abbr title="Variant">Variant</abbr></th>
+        <th><abbr title="Price">Master Price</abbr></th>
+        <th><abbr title="Delete">Delete</abbr></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @variants.each do |variant| %>
+        <tr onclick="window.location='<%= admin_product_variant_path(@product, variant) %>'">
+          <th><%= variant.sku.truncate(15) %> </th>
+          <% if variant.images.any? %>
+            <th>
+              <%= image_tag default_image_for_product_or_variant(variant).url(:mini), class: "image is-64x64" %>
+            </th>
+          <% else %>
+            <th>
+            </th>
+          <% end %>
+          <th>
+            <%= variant.options_text.truncate(25) %>
+          </th>
+          <th><%= display_price(variant) %></th>
+          <th>
+            <%= link_to '<i class="fas fa-times"></i>'.html_safe, admin_product_variant_path(@product, variant), method: :delete, class: "button is-danger", data: { confirm: "Are you sure?" } %>
+          </th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

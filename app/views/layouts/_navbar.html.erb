@@ -1,81 +1,80 @@
-<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-      <%= image_tag("logo") %>
-      <h1 class="title is-3"></h1>
-    </a>
+<% cache do %>
+  <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="<%= admin_root_path %>">
+        <%= image_tag("logo") %>
+        <h1 class="title is-3"></h1>
+      </a>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Orders
-        </a>
-
-        <div class="navbar-dropdown">
-          <%= link_to "New Order", new_admin_order_path, class: "dropdown-item" %>
-          <%= link_to "All orders", admin_orders_path, class: "dropdown-item" %>
-          <hr class="dropdown-divider">
-          <%= link_to "Find order", admin_orders_path, class: "dropdown-item has-text-primary" %>    
-        </div>
-      </div>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <%= link_to "Products", admin_products_path, class: "navbar-link" %> 
-
-        <div class="navbar-dropdown">
-          <%= link_to "All products", admin_products_path, class: "dropdown-item" %> 
-          <%= link_to "New product", new_admin_product_path, class: "dropdown-item" %>
-          <hr class="dropdown-divider">
-          <%= link_to "Remove products", admin_products_path, class: "dropdown-item has-text-danger" %>      
-        </div>
-      </div>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Analytics
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item">
-            Sales Report
-          </a>
-          <a class="navbar-item">
-            Invoices
-          </a>
-          <a class="navbar-item">
-            Inventory
-          </a>
-          <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
-        </div>
-      </div>
+    <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <%= link_to "Customers", admin_customers_clients_path, class: "navbar-item" %>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <%= link_to "Orders", admin_orders_path, class: "navbar-link" %> 
+
+
+          <div class="navbar-dropdown">
+            <%= link_to "New Order", new_admin_order_path, class: "dropdown-item" %>
+            <%= link_to "All Orders", admin_orders_path, class: "dropdown-item" %>
+            <hr class="dropdown-divider">
+            <%= link_to "Find order", admin_orders_path, class: "dropdown-item has-text-primary" %>    
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <%= link_to "Products", admin_products_path, class: "navbar-link" %> 
+
+          <div class="navbar-dropdown">
+            <%= link_to "All products", admin_products_path, class: "dropdown-item" %>
+            <%= link_to "New product", new_admin_product_path, class: "dropdown-item" %>
+            <hr class="dropdown-divider">
+            <%= link_to "Option Types", admin_option_types_path, class: "dropdown-item has-text-info" %>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Analytics
+          </a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              Sales Report
+            </a>
+            <a class="navbar-item">
+              Invoices
+            </a>
+            <a class="navbar-item">
+              Inventory
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              Report an issue
+            </a>
+          </div>
+        </div>
+        <div class="navbar-start">
+          <%= link_to "Customers", admin_customers_clients_path, class: "navbar-item" %>
+        </div>
       </div>
-    </div>
 
-
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <% if !spree_user_signed_in? %>
-            <%= link_to('Sign In', spree.new_spree_user_session_path, method: :get, class: "button is-light") %>
-          <% else %>
-            <%= link_to('Logout', spree.destroy_spree_user_session_path, method: :get, class: "button is-danger") %>
-          <% end %>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <% if !spree_user_signed_in? %>
+              <%= link_to('Sign In', spree.new_spree_user_session_path, method: :get, class: "button is-light") %>
+            <% else %>
+              <%= link_to('Logout', spree.destroy_spree_user_session_path, method: :get, class: "button is-danger") %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+<% end %>

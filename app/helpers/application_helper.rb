@@ -3,6 +3,15 @@
 module ApplicationHelper
   include FrontendHelper
   include BaseHelper
+  def currency_options(selected_value = nil)
+    selected_value ||= Spree::Config[:currency]
+    currencies = ::Money::Currency.table.map do |_code, details|
+      iso = details[:iso_code]
+      [iso, "#{details[:name]} (#{iso})"]
+    end
+    options_from_collection_for_select(currencies, :first, :last, selected_value)
+  end
+      
   def available_countries
     countries = Spree::Country.all
     countries.collect do |country|

@@ -1,0 +1,28 @@
+.table__wrapper
+  table.table.is-striped.is-narrow.is-hoverable.is-fullwidth.has-mt-24
+    thead.has-bg-peach-pop-40
+      tr
+        th
+          abbr title="Product" = sort_link(@q, :variant_name)
+        th
+          abbr title="Currency" = sort_link(@q, :currency)
+        th
+          abbr title="Amount" = sort_link(@q, :amount)
+        th
+    tbody
+      - if @prices
+        - @prices.each do |price|
+          tr onclick="window.location=''"
+            - if price.variant.name
+              th
+                = price.variant.name
+            - else 
+              th 
+                |-
+            th 
+              = price.currency
+            th
+              = price.display_amount.to_html
+            th.is-flex style="justify-content: space-around"
+              = link_to 'Destroy', admin_customer_price_path(customer_id: user.id, id: price.id), method: :delete, class: "has-text-danger", data: { confirm: "Are you sure?" }
+= paginate @prices

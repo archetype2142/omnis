@@ -1,0 +1,60 @@
+= form_with model: Spree::Variant.new, url: admin_product_variants_path(@product), html: {multipart: true} do |f|
+  .box
+    .row
+      - if @product.option_types.any?
+        h2.is-size-4.is-size-4-touch.has-text-centered Option Types
+        hr
+        .columns.is-mobile.is-multiline
+          - @product.option_types.each do |o|
+            = f.fields_for 'option_values[]', o do |ot|
+              .column.is-one-third
+                .field
+                  .label = o.name
+                  .control
+                    .select
+                      = ot.collection_select :option_value_ids, o.option_values.order('name ASC'), :id, :name, {include_blank: "None Specified"}, { class: 'input is-fullwidth', include_blank: true, prompt: "-Select-" }
+      h2.is-size-4.is-size-4-touch.has-text-centered Variant Properties
+      hr
+      .columns.is-mobile.is-multiline
+        .column
+          .field 
+            .label Price
+            .control
+              = f.text_field :price, class: 'input', value: @product.price
+        .column
+          .field 
+            .label Cost Price
+            .control
+              = f.text_field :cost_price, class: 'input'
+        .column
+          .field 
+            .label Tax Category
+            .control
+              .select
+                = f.select(:tax_category_id, Spree::TaxCategory.all.map{ |t| [t.name, t.id]})
+      .columns.is-mobile
+        .column
+          .field
+            label.label Weight
+            .control
+              = f.text_field :weight, class: 'input'
+        .column
+          .field
+            label.label Height
+            .control
+              = f.text_field :height, class: 'input'
+        .column
+          .field
+            label.label Width
+            .control
+              = f.text_field :width, class: 'input'
+        .column
+          .field
+            label.label Depth
+            .control
+              = f.text_field :depth, class: 'input'
+      .columns
+        .column
+          .field 
+            .control
+              = f.submit "Create!", class: "button is-primary"

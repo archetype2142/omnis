@@ -7,6 +7,8 @@ module Spree
     has_many :physical_stores, through: :subsidiaries
 
     has_one :price_book
+    validates :name, presence: true
+    validates :nip, { presence: true, uniqueness: true }
 
     def employees
       self.physical_stores.map{ |s| s.users.all }

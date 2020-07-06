@@ -2,13 +2,10 @@
   h1.title.is-1.has-text-centered.has-mt-24 New Order
   .columns
     .column.is-2
-      = sidebar({'type': 'Orders', \
-        items: { \
-          'New Order': "#{new_admin_order_path}", \
-          'All Orders': "#{admin_orders_path}" \
-        } } )
+      = sidebar(order_sidebar_items)
     .column.is-8.content style="height: 150vh;"
-      = render 'admin/orders/new_order_form'
+      = new_order_form
+
     .column
       .sticky
         .box.hide-mob

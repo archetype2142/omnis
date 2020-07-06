@@ -1,0 +1,134 @@
+= form_with model: @option_type, url: admin_option_type_path(@option_type), method: :put do |f|
+  .box
+    h2.is-size-2.is-size-5-touch Option Value
+    .columns.is-mobile.is-multiline
+      .column.is-half
+        .field 
+          .label Name
+          .control
+            = f.text_field :name, class: 'input'
+
+      .column.is-half
+        .field 
+          .label Presentation
+          .control
+            = f.text_field :presentation, class: 'input'
+      .column
+        .control
+          = f.submit :save, class: "button is-info"
+= form_with model: @option_type, url: admin_option_type_option_values_path(@option_type), method: :post do |f|
+  = f.text_field :id, class: 'input', type: "hidden"
+  .box.has-mt-4
+    .level.is-mobile
+      .level-left
+        .level-item
+          h2.is-size-2.is-size-5-touch All Values
+      .level-right
+        .level-item
+          button.button.is-primary id="add_new_item" New Item
+        .level-item
+          = f.submit "Save!", class: "button is-info"
+    
+    .columns.is-mobile
+      .column.is-one-third.has-bg-red-10.is-bold Name
+      .column.has-bg-red-20.is-bold Presentation
+    ul.block-list id="option_types"
+      - @option_values.all.order(:presentation).each_with_index do |option, index|
+        = f.fields_for 'option[]', option do |o|
+          li.is-primary
+            = o.text_field :id, class: 'input', type: "hidden"
+            .columns.is-mobile
+              .column.is-flex.is-one-third.is-flex-align-center
+                .field 
+                  .control
+                    = o.text_field :name, class: 'input'
+              .column.is-flex.is-one-third.is-flex-align-center
+                .field 
+                  .control
+                    = o.text_field :presentation, class: 'input'
+              .column style="text-align:right;"
+                = link_to '<i class="fas fa-times"></i>'.html_safe, admin_option_type_option_value_path(option), method: :delete, class: "button is-danger", data: { confirm: "Are you sure?" }
+
+javascript:
+  var button = document.querySelector("#add_new_item")
+  var options_list = document.querySelector("#option_types")
+  var count = (document.querySelectorAll("[name^=option_type\\[option]").length / 3) + 81
+
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log(event.target)
+    
+    var li = document.createElement("li");
+    li.setAttribute('id', "new_value");
+    li.setAttribute('class', "is-primary");
+
+    var columns = document.createElement("div");
+    columns.setAttribute('class', "columns is-mobile");
+
+    var column_1 = document.createElement("div");
+    var column_1_input = document.createElement("input");
+    var field_1 = document.createElement("div");
+    field_1.setAttribute('class', "field");
+
+    var control_1 = document.createElement("div");
+    control_1.setAttribute('class', "control");
+    column_1_input.setAttribute('class', 'input');
+    column_1_input.setAttribute('name', "option_type[option][" + count + "][name]");
+    column_1_input.setAttribute('id', "option_type_option_" + count + "_value_name");
+    column_1_input.setAttribute('type', "text");
+
+    column_1.setAttribute('class', "column is-flex is-one-third is-flex-align-center");
+    column_1.appendChild(field_1);
+    field_1.appendChild(control_1);
+    control_1.appendChild(column_1_input);
+
+    var column_2 = document.createElement("div");
+    var column_2_input = document.createElement("input");
+    var field_2 = document.createElement("div");
+    field_2.setAttribute('class', "field");
+
+    var control_2 = document.createElement("div");
+    control_2.setAttribute('class', "control");
+    column_2_input.setAttribute('class', 'input');
+    column_2_input.setAttribute('name', "option_type[option][" + count + "][presentation]");
+    column_2_input.setAttribute('id', "option_type_option_value_" + count + "_presentation");
+    column_2_input.setAttribute('type', "text");
+
+    column_2.setAttribute('class', "column is-flex is-one-third is-flex-align-center");
+    column_2.appendChild(field_2);
+    field_2.appendChild(control_2);
+    control_2.appendChild(column_2_input);
+
+    var column_3 = document.createElement("div");
+    var column_3_button_link = document.createElement("a");
+    var column_3_button_icon = document.createElement("i");
+
+    column_3_button_link.setAttribute("class", "button is-danger");
+    column_3_button_link.setAttribute("data-confirm", "Are you sure?");
+    column_3_button_link.setAttribute("rel", "nofollow");
+    column_3_button_link.setAttribute("data-method", "delete");
+    column_3_button_icon.setAttribute("class", "fas fa-times");
+    column_3_button_link.appendChild(column_3_button_icon);
+
+    column_3.setAttribute('class', "column");
+    column_3.setAttribute('style', "text-align:right;")
+    column_3.appendChild(column_3_button_link);
+
+    columns.appendChild(column_1);
+    columns.appendChild(column_2);
+    columns.appendChild(column_3);
+    
+    li.appendChild(columns);
+    
+    options_list.appendChild(li);
+    count += 1;
+  });
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,15 @@
+.container.is-fluid.has-mb-60
+  h1.title.is-size-3.has-text-centered.has-mt-24.is-size-5-touch 
+    | Hello 
+    = current_spree_user.email
+  .columns
+    .column.is-2
+      = sidebar(order_sidebar_items)
+    .column.is-8.content.has-mb-60
+      = render "admin/homepage/feed"
+    .column
+      .sticky
+        .box.hide-mob
+          h5.has-text-centered.is-size-5.has-border-bottom Activity Feed
+          .box.is-hoverable abc
+          .box.is-hoverable asd

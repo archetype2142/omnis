@@ -1,0 +1,41 @@
+.table__wrapper
+  table.table.is-striped.is-narrow.is-hoverable.is-fullwidth.has-mt-24
+    thead.has-bg-peach-pop-40
+      tr
+        th
+          abbr title="Order_Date" = sort_link @search, :created_at, "Order Date"
+        th 
+          abbr title="Number" = sort_link(@search, :number) 
+        th
+          abbr title="State" = sort_link @search, :state, "State"
+        th
+          abbr title="Payment_State" = sort_link @search, :payment_state, "Payment State"
+        th 
+          abbr title="Shipment_State" = sort_link @search, :shipment_state, "Shipment State"
+        th 
+          abbr title="Client_Email" = sort_link @search, :email, "Email"
+        th 
+          abbr title="Total" = sort_link @search, :total, "Total"
+    tbody
+      - @orders.each do |order| 
+        tr onclick="window.location='#{admin_order_path(order)}'"
+          th 
+            = order_time(@show_only_completed ? order.completed_at : order.created_at)
+          th
+            = link_to order.number, admin_order_path(order)
+          th
+            = order.state.downcase
+          th
+            - if order.payment_state 
+              = order.payment_state
+          th
+            - if order.shipment_state 
+              = order.shipment_state
+          th 
+            - if order.user 
+              = link_to order.email, admin_customers_client_path(order.user)
+            - else 
+              = mail_to order.email
+          th 
+            = order.display_total.to_html
+= paginate @orders

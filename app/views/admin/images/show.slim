@@ -1,0 +1,48 @@
+- tab_name = :images
+.container.is-fluid.has-mb-60
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-4-touch = @product.name
+  .columns
+    .column.is-2
+       = sidebar(single_product_sidebar_items(@product))
+    .column.is-8.content.has-mb-60
+      = product_tabs(tab_name)
+      .level.is-mobile
+        .level-left.is-flex.is-flex-centered
+          h1 style="margin-bottom: 0px" Thumbnail 
+        .level-right
+          = link_to "Delete", admin_product_image_path(scope, @image), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button is-danger'
+      hr
+      .columns.is-mobile
+        .column.is-one-third
+          = image_tag @image.url(:medium), class: "image"
+        .column
+          = form_for [:admin, @product, @image], html: { multipart: true } do |f|
+            .columns
+              .column
+                .field
+                  label.label Variant
+                  .control
+                    .select
+                      = f.select(:viewable_id, @product.variants_including_master.all.collect { |v| v.options_text.empty? ? ["All", v.id] : [v.options_text, v.id] })
+            .columns
+              .column
+                .field
+                  label.label Alt text
+                  .control
+                    = f.text_field :alt, class: "input"
+            .columns
+              .column
+                .field
+                  label.label Attachment name
+                  .control
+                    = f.text_field :attachment_file_name, class: "input"
+            .columns
+              .column
+                .field
+                  .control
+                    = f.submit "Update!", class: "button is-primary"
+    .column
+      .box.has-mt-24.sticky.hide-mob
+        p Search/Scan/Filter/Notes
+        br
+        button.button.is-primary New Client

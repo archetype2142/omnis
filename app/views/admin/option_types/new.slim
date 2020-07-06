@@ -1,0 +1,32 @@
+.container.is-fluid.has-mb-60
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-3-touch Option Types
+  .columns
+    .column.is-2
+      = sidebar(options_sidebar_items)
+    .column.is-8.content.has-mb-60
+      .box
+        = form_with url: admin_option_types_path, method: :post do |f|
+          .columns.is-mobile
+            .column
+              .field 
+                label.label Name
+                .control
+                  = f.text_field :name, class: 'input'
+            .column
+              .field 
+                label.label Presention
+                .control
+                  = f.text_field :presentation, class: 'input'
+          .columns.is-mobile
+            .column
+              .field 
+                .control
+                  = f.submit "Create", class: 'button is-primary'
+
+    .column
+      .sticky
+        .box.hide-mob
+          p Add a new product
+          br
+          = link_to "New product", new_admin_product_path, class: "button is-primary"
+        

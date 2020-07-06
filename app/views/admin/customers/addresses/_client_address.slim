@@ -172,6 +172,9 @@
 javascript:
   var same_checkbox = document.querySelector('#same_as_billing');
   var checked = "#{user.bill_address == user.ship_address}";
+  if (!checked) {
+    document.querySelector('#shipping_address_form').classList.add("hide");
+  }
 
   if (checked === 'true') same_checkbox.checked = true;
 

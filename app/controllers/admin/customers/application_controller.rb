@@ -5,7 +5,11 @@ module Admin
       helper_method :user, :all_users
 
       def user
-        user ||= Spree::User.find(params[:id]) if params[:id]
+        if params[:customer_id]
+          user ||= Spree::User.find(params[:customer_id])
+        elsif params[:id]
+          user ||= Spree::User.find(params[:id])
+        end
       end
 
       def all_users

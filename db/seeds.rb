@@ -17,17 +17,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Spree::TaxCategory.all.destroy_all
-# Spree::ShippingCategory.all.destroy_all
-# Spree::Address.all.destroy_all
-# Spree::User.all.destroy_all
-# Spree::Product.all.destroy_all
-# Spree::Country.all.destroy_all
-# Spree::Role.all.destroy_all
-# Spree::Zone.all.destroy_all
-# Spree::StockLocation.all.destroy_all
-# Spree::StockItem.all.destroy_all
-# Spree::Taxonomy.all.destroy_all
+Spree::TaxCategory.all.destroy_all
+Spree::ShippingCategory.all.destroy_all
+Spree::Address.all.destroy_all
+Spree::User.all.destroy_all
+Spree::Product.all.destroy_all
+Spree::Country.all.destroy_all
+Spree::Role.all.destroy_all
+Spree::Zone.all.destroy_all
+Spree::StockLocation.all.destroy_all
+Spree::StockItem.all.destroy_all
+Spree::Taxonomy.all.destroy_all
 
 Spree::Zone.create!(name: 'Poland', default_tax: true)
 c = Spree::Country.create!(name: "Poland", iso: "PL", iso3: "POL", iso_name: "Poland")

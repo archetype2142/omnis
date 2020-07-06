@@ -1,0 +1,22 @@
+.box.is-fullwidth
+  = form_with model: Spree::Price.new, url: admin_customer_prices_path, method: :post, local: true do |f| 
+    .columns
+      .column.is-half
+        .field
+          .control
+            label.label Variant
+            .select
+              input.input id="price[variant_id]" name="price[variant_id]" required="true"
+              
+    .columns
+      .column
+        label.label Amount
+        .field.has-addons
+          .control
+            = f.text_field :amount, type: "number",  step: "0.01", class: 'input', required: true
+          .control
+            .select
+              = f.select :currency, currency_codes(which: ['PLN', 'USD']), class: "input"
+    .columns
+      .column
+        = f.submit "Create!", class: "button is-primary"

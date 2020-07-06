@@ -1,0 +1,36 @@
+.box.is-fullwidth
+  .columns
+    .column
+      .field
+        label.label Variant Name
+        .control
+          input.button disabled="true" value="#{@price.variant.name}"
+    .column
+      .field
+        label.label For User
+        .control
+          - if @price.price_book
+            = link_to @price.price_book.user.email, admin_customers_client_path(@price.price_book.user)
+          - else
+            input.button disabled="true" value="none"
+ 
+    - @price.variant.is_master?
+      .columns
+        .column
+          .field
+            label.label Variant Options
+            .control
+              input.button disabled="true" value="#{@price.variant.options_text}"
+
+  .columns
+    = form_with model: @price, url: admin_product_price_path, method: :put, local: true do |f|
+      .column
+        .field.has-addons
+          .control
+            = f.text_field :amount, type: "number",  step: "0.01", class: 'input', required: true
+          .control
+            .button.is-primary disabled="true" = @price.currency
+      .column
+        = f.submit "Update!", class: "button is-primary"
+
+

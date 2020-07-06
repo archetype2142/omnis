@@ -1,0 +1,37 @@
+- tab_name = :variants
+.container.is-fluid.has-mb-60
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-3-touch = @product.name
+  .columns
+    .column.is-2
+      = sidebar(product_sidebar_items)
+    .column.is-8.content.has-mb-60
+      = product_tabs(tab_name)
+
+      - if !@product.empty_option_values? 
+        .level
+          .level-left
+          .level-right
+            = link_to "New Variant", new_admin_product_variant_path(@product), class: "button is-primary"
+
+      - if @variants.any?
+        = render 'admin/variants/all_variants'
+      - else
+        .box
+          - if @product.empty_option_values? 
+            h5.is-size-5-touch 
+              | Add 
+              = link_to " option types ", admin_product_path(@product)
+              | and 
+              = link_to " option values ", admin_option_types_path
+              | before creating a variant!
+          - else 
+            h5.is-size-5-touch 
+              | No Variants yet 
+              = link_to "add now!", new_admin_product_variant_path(@product)
+    .column
+      .sticky
+        .box.hide-mob
+          p Add a new product
+          br
+          = link_to "New product", new_admin_product_path, class: "button is-primary"
+          

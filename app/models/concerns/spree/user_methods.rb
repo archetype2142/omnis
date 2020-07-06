@@ -12,17 +12,19 @@ module Spree
       before_validation :clone_billing_address, if: :use_billing?
       before_destroy :check_completed_orders
       after_destroy :nullify_approver_id_in_approved_orders
-      enum client_type: [:b2c, :b2b, :subsidiary_owner]
+      enum client_type: [:b2c, :b2b, :subsidiary_owner, :company_owner, :store_owner]
 
       attr_accessor :use_billing
       
       has_many_attached :csv_files
       has_one :price_book
+      has_one :company
       has_many :prices, through: :price_book
       
       has_many :managed_accounts, class_name: 'Spree::User', foreign_key: :manager_id
       has_many :spree_company_users, class_name: "Spree::CompanyUser"
       has_many :companies, through: :spree_company_users, source: :company
+      
       belongs_to :physical_store
       # Returns this managed_account's manager
       belongs_to :manager, class_name: 'Spree::User'

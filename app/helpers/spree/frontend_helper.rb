@@ -56,7 +56,7 @@ module Spree
 
     def class_for(flash_type)
       {
-        success: 'primary',
+        success: 'info',
         registration_error: 'danger',
         error: 'danger',
         alert: 'danger',

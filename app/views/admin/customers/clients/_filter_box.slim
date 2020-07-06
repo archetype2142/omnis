@@ -34,7 +34,12 @@
         = f.label :bill_address_company_cont, "Company", class: "label"
         .control
           = f.search_field :bill_address_company_cont, class: "input"
-    .field.has-mb-18
+      .field.column
+        = f.label :client_type_eq, "Client Type", class: "label"
+        .control
+          .select
+            = f.select(:client_type_eq, Spree::User.client_types.map { |h| [h[0], h[1]] })
+    .field.has-pb-18
       .control
         = f.submit "Filter", class: "button is-primary"
 

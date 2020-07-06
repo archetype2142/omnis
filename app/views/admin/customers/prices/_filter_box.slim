@@ -1,0 +1,35 @@
+.box style="margin-bottom: 0px; padding-bottom: 0px"
+  .columns.is-mobile style="margin-bottom: 0px"
+    .column style="display: flex; justify-content: flex-start; align-items: center"
+      button.button.is-info.has-mb-5 id="hide_show_button"
+        span.icon id="icon"
+          i.fas.fa-arrow-down
+        span Filter
+    .column.is-flex.is-flex-centered
+      = form_with url: admin_customer_prices_path(customer_id: user), method: :get do |f|
+        .field
+          label.label Per page
+          .control
+            .select
+              = select_tag "per_page", options_for_select([10, 15, 20, 30], params[:per_page]), onchange: 'this.form.submit();'
+  = search_form_for @q, url: admin_customer_prices_path(customer_id: user), id: "search_box", class: "closed" do |f|
+    .columns
+      .column
+        label.label Price range
+        .field.has-addons
+          .control
+            = f.search_field :amount_gteq, class: "input", placeholder: "From", type: "number"
+          .control
+            button.button.is-primary disabled="true" 
+              span.icon
+                i.fas.fa-arrow-right
+          .control
+            = f.search_field :amount_lteq, class: "input", placeholder: "To", type: "number"
+        /.field
+          .control
+            = f.search_field :variant_name_cont, class: "input"
+    .field.has-mb-18
+      .control
+        = f.submit "Filter", class: "button is-primary"
+
+= javascript_pack_tag "toggle_search", 'data-turbolinks-track': 'reload' 

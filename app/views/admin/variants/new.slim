@@ -1,0 +1,17 @@
+- tab_name = :variants
+.container.is-fluid.has-mb-60
+  h1.title.is-1.has-text-centered.has-mt-24.is-size-3-touch = @product.name
+  .columns
+    .column.is-2
+      = sidebar(product_sidebar_items)
+    .column.is-8.content.has-mb-60
+      = product_tabs(tab_name)
+      - if !@product.empty_option_values?
+        = render 'admin/variants/new_variant_form'
+    .column
+      .sticky
+        .box.hide-mob
+          p Add a new product
+          br
+          = link_to "New product", new_admin_product_path, class: "button is-primary"
+          

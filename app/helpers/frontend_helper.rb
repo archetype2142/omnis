@@ -55,7 +55,7 @@ module FrontendHelper
 
   def class_for(flash_type)
     {
-      success: 'is-primary',
+      success: 'is-info',
       registration_error: 'is-danger',
       error: 'is-danger',
       alert: 'is-danger',

@@ -53,7 +53,7 @@ module Admin
     end
 
     def create
-      @product = Spree:Product.new(product_params)
+      @product = Spree::Product.new(product_params)
 
       if params['product_image']
         im = Image.create!(image_params)
@@ -64,7 +64,7 @@ module Admin
         redr = admin_product_path(@product)
         notice = { notice: "created new product" }
       else
-        redr = new_admin_product_path
+        redr = new_admin_products_path
         notice = { alert: @product.errors }
       end
 
@@ -98,7 +98,7 @@ module Admin
     private
 
     def set_product
-      @product = Spree::Product.find_by!(slug: params[:id])
+      @product = Spree::Product.friendly.find(params[:id])
     end
     
     def image_params
@@ -120,7 +120,13 @@ module Admin
         shipping_category_id: params[:product]['shipping_category_id'],
         slug: params[:product][:slug] || params[:product]['name'].split(" ").join("-"),
         description: params[:product][:description],
-        currency: params[:product][:currency]
+        currency: params[:product][:currency],
+        option_type_ids: params[:product][:option_type_ids],
+        weight: params[:product][:weight],
+        height: params[:product][:height],
+        width: params[:product][:width],
+        depth: params[:product][:depth]
+
       }
     end
 

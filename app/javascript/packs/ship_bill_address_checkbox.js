@@ -14,7 +14,7 @@ class AddressGenerator extends Component {
     let form = document.querySelector('#shipping_address_form');
     let checkbox = document.querySelector('#same_as_billing');
     let send_value = document.querySelector('#user_use_billing');
-    
+
     if(checkbox.checked) {
       self.setState({same_as_billing: true})
       form.classList.add("hide");   
@@ -25,11 +25,11 @@ class AddressGenerator extends Component {
       event.preventDefault();
       if(this.checked) {
         self.setState({same_as_billing: true})
-        form.classList.add("hide");   
+        form.classList.add("hide");
         send_value.value = true
       } else {
         self.setState({same_as_billing: false})
-        form.classList.remove("hide");  
+        form.classList.remove("hide");
         send_value.value = false
       }
     });
