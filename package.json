@@ -11,7 +11,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bulma": "^0.8.2",
     "bulma-block-list": "^0.4.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartjs": "^0.3.24",
     "choices.js": "^9.0.1",
     "prop-types": "^15.7.2",
